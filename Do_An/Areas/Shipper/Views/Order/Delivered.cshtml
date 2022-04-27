@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Shipper/Views/Shared/_Layout.cshtml";
+}
+@model Do_An.Frameworks.DONHANG
+<div class="row">
+    <div class="col-sm-12 col-md-6">
+        <h1 class="h3 mb-2 text-gray-800">Đơn hàng</h1>
+    </div>
+
+</div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Thống kê</h6>
+    </div>
+    <div class="card-body">
+        @if (TempData["Alert-Message"] != null)
+        {
+            <div class="alert @TempData["AlertType"]" id="success-alert">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <strong>@TempData["Alert-Message"]</strong>
+            </div>
+        }
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Mã DH</th>
+                        <th>Ngày xác nhận</th>
+                        <th>Nội dung</th>
+                        <th>Tình trạng</th>
+                        <th>Tổng tiền (đ)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.Order != null)
+                    {
+                        foreach (var item in ViewBag.Order)
+                        {
+                            <tr>
+                                <td>@item.MaDH</td>
+                                <td>@item.NgayXacNhan.ToString("dd/MM/yyyy")</td>
+                                <td style="font-size:14px;">
+                                    @foreach (var name in ViewData[item.MaDH])
+                                    {
+                                        @name
+                                        <br>
+                                    }
+                                </td>
+                                <td>
+                                    @item.TinhTrang
+                                </td>
+                                <td style="font-size:20px;">
+                                        @String.Format("{0:n0}", item.TongTien)
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/Assets/Admin/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Assets/Admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Assets/Admin/js/demo/datatables-demo.js"></script>
+}

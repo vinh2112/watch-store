@@ -1,0 +1,65 @@
+﻿@{
+    Layout = null;
+}
+@model Do_An.Frameworks.USER
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/Assets/Customer/css/style.css">
+    <link rel="stylesheet" href="~/Assets/Customer/css/base.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <div class="login">
+        <div class="header">
+            <a href="@Url.Action("Index","Home", new { area = "Customer"})" class="header__logo">Nologo</a>
+            <label>Login</label>
+        </div>
+        <div class="login__form">
+            @using (Html.BeginForm())
+            {
+                <h1 class="login__form-title">Login</h1>
+                <div class="login__form-input">
+                    <div>
+                        @Html.TextBoxFor(model => model.UserN, new { @required = "required", onchange = "typePass()" })
+                        <div class="underline"></div>
+                        <label>Số điện thoại</label>
+                    </div>
+                </div>
+                <div class="login__form-input">
+                    <div>
+                        @Html.PasswordFor(model => model.PassW, new { @required = "required", oninput = "typePass()" })
+                        <div class="underline"></div>
+                        <label>Mật khẩu</label>
+                    </div>
+                </div>
+                <div class="login__form-function">
+                    <u>@Html.ActionLink("Register", "Index", "Signup")</u>
+                    <a href="@Url.Action("ForgetPassword","Login")"><i>Forget password?</i></a>
+                </div>
+
+                if (TempData["Error"] != null)
+                {
+                    <div style="position:absolute; padding:8px 50px; width:100%; font-weight:500; color:var(--primary-color);" id="warning">
+                        * @TempData["Error"]
+                    </div>
+                }
+
+                <input type="submit" class="my__btn" value="Login">
+            }
+        </div>
+    </div>
+    <script type="text/javascript">
+        function typePass() {
+            var kw = document.getElementById("PassW").value;
+            if (kw == "") {
+                document.getElementById("warning").style.visibility = "hidden";
+            }
+        }
+    </script>
+</body>
+</html>

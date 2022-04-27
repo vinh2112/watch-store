@@ -1,0 +1,92 @@
+﻿
+@{
+    Layout = null;
+}
+@model Do_An.Frameworks.INFORMATION
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Assets/Admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="~/Assets/Customer/css/style.css">
+    <link rel="stylesheet" href="~/Assets/Customer/css/base.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="~/Assets/Admin/css/sb-admin-2.min.css" rel="stylesheet">
+    <style>
+        .form_content {
+            padding: 24px 30px 18px;
+        }
+
+        .form-control.owner::selection {
+            background: none;
+            cursor: default;
+        }
+    </style>
+</head>
+<body>
+    @if (TempData["Alert-Message"] != null)
+    {
+        <div class="alert alert-success text-center" role="alert" id="alert" style="position:fixed;width:100%;">
+            @TempData["Alert-Message"]
+        </div>
+        <script>
+            setTimeout(function () {
+                document.getElementById("alert").remove();
+            }, 2000);
+        </script>
+    }
+    <div class="form" style="position:relative; width: 700px; margin:0px auto; top:100px;">
+        <div class="form_content" style="min-height:unset;">
+            <h3 class="text-primary">Thông tin cá nhân</h3>
+            <div class="dropdown-divider" style="border-top: 1px solid #c3c3c3;"></div>
+            @using (Html.BeginForm("Index", "InfoCustomer", FormMethod.Post))
+            {
+                foreach (var item in ViewBag.Customer)
+                {
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputPhone">Số điện thoại</label>
+                            @Html.TextBoxFor(model => model.SDT, new { @class = "form-control owner", id = "inputPhone", Value = item.SDT, @readonly = "readonly" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputName">Họ và tên</label>
+                            @Html.TextBoxFor(model => model.TenKH, new { @class = "form-control", id = "inputName", Value = item.TenKH })
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail">Email</label>
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", id = "inputEmail", Value = item.Email })
+                        </div>
+                        <div class="form-group col-md-4" style="position:relative;">
+                            <div style="position:absolute; top:26px; color:var(--primary-color);">* Email cần chính xác để &nbsp;&nbsp;&nbsp;&nbsp; thay đổi mật khẩu</div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-8">
+                            <label for="inputAddress">Địa chỉ</label>
+                            <textarea class="form-control" id="inputAddress" name="DiaChi" required>@item.DiaChi</textarea>
+                        </div>
+                    </div>
+                }
+                <div class="dropdown-divider" style="border-top: 1px solid #c3c3c3;"></div>
+                <div class="form-row justify-content-end">
+                    <a href="@ViewBag.URL" class="btn btn-light btn-icon-split" style="margin-right:10px;">
+                        <span class="icon text-gray-600">
+                            <i class="fas fa-chevron-left"></i>
+                        </span>
+                        <span class="text">Back</span>
+                    </a>
+                    <button class="btn btn-success" type="submit">Cập nhật</button>
+                </div>
+            }
+        </div>
+
+    </div>
+</body>
+</html>

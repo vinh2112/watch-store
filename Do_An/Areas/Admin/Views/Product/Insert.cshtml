@@ -1,0 +1,106 @@
+﻿
+@{
+    ViewBag.Title = "Insert";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@model Do_An.Frameworks.SANPHAM
+<div class="card shadow mb-auto">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Thêm Sản Phẩm</h6>
+    </div>
+    <div class="card-body">
+        @if (TempData["Alert-Message"] != null)
+        {
+            <div class="alert @TempData["AlertType"]" id="success-alert">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <strong>@TempData["Alert-Message"]</strong>
+            </div>
+        }
+        @using (Html.BeginForm("Insert", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="form-row">
+                <div class="form-group col-md-9">
+                    <label for="inputName">Tên Sản Phẩm</label>
+                    @Html.TextBoxFor(model => model.TenSP, new { @class = "form-control", id = "inputName", required = "required" })
+                </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="inputCategory">Danh Mục</label>
+                    <select id="inputCategory" class="form-control" name="category">
+                        @foreach (var category in ViewBag.Category)
+                        {
+                            <option value="@category.MaDM">
+                                @category.TenDM
+                            </option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="inputBrand">Thương Hiệu</label>
+                    <select id="inputBrand" class="form-control" name="brand">
+                        @foreach (var brand in ViewBag.Brand)
+                        {
+                            <option value="@brand.MaTH">
+                                @brand.TenTH
+                            </option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="inputColor">Màu Sắc</label>
+                    @Html.TextBoxFor(model => model.MauSac, new { @class = "form-control", id = "inputColor", required = "required" })
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="inputSize">Kích Thước</label>
+                    @Html.TextBoxFor(model => model.KichThuoc, new { @class = "form-control", id = "inputSize", required = "required" })
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="inputQuantity">Số Lượng</label>
+                    @Html.TextBoxFor(model => model.SoLuong, new { @class = "form-control", type = "number", id = "inputQuantity", Value = 1, required = "required", min = "0"})
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="inputPrice">Giá</label>
+                    <div class="input-group mb-3">
+                        @Html.TextBoxFor(model => model.Gia, new { @class = "form-control", type = "number", id = "inputPrice", Value = 100, required = "required", min = "0" })
+                        <div class="input-group-append">
+                            <span class="input-group-text">,000đ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <img src="~/Images/no-image.png" alt="Đồng hồ" class="img-thumbnail" style="width:260px;" id="output">
+
+                    @Html.TextBoxFor(model => model.HinhAnh, new { style = "display:none;", Value = "/Images/no-image.png" })
+                </div>
+                <div class="form-group col-md-5">
+                    <input type="file" id="file" name="file" accept="image/*" onchange="loadFile(event)" />
+                    <script>
+                        var loadFile = function (event) {
+                            var image = document.getElementById("output");
+                            image.src = URL.createObjectURL(event.target.files[0]);
+                        };
+                    </script>
+                </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="form-row flex-row-reverse">
+                <button class="btn btn-success" type="submit">Save</button>
+                <a href="@ViewBag.URL" class="btn btn-light btn-icon-split" style="margin-right:10px;">
+                    <span class="icon text-gray-600">
+                        <i class="fas fa-chevron-left"></i>
+                    </span>
+                    <span class="text">Back</span>
+                </a>
+            </div>
+        }
+    </div>
+</div>
+

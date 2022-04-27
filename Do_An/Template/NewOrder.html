@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            box-sizing: border-box;
+            list-style: none;
+            color: black;
+        }
+
+        td {
+            padding: 5px 10px;
+        }
+
+        tr,td,th,table{
+            border: 1px solid black;
+        }
+
+        .footer {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <p>Khách hàng : <b>{{CustomerName}}</b></p>
+        <p>Địa chỉ : <b>{{Address}}</b></p>
+        <p>Đơn hàng : <b>{{IDOrder}}</b></p>
+        <table cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Tên Sản Phẩm</th>
+                    <th style="padding:0 10px;">Đơn giá (đ)</th>
+                    <th style="padding:0 10px;">Số Lượng</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{Order}}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Tổng tiền (đ)</th>
+                    <td style="text-align:center;" colspan="2">{{Total}}</td>
+                </tr>
+            </tfoot>
+        </table>
+        <i>{{Notice}}</i>
+    </div>
+    <div class="footer">
+        <h1><b>Cám ơn bạn đã ghé thăm shop !!!</b></h1>
+    </div>
+</body>
+</html>

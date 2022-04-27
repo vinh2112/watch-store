@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Customer/Views/Shared/_Layout.cshtml";
+}
+
+@section Title{
+    <title>De Montre</title>
+}
+
+<div class="container__banner">
+    <a href="@Url.Action("Index","Product")" class="container__banner-main"><img src="~/Images/main-banner.jpg" alt=""></a>
+
+    <div class="container__banner-option">
+        <div class="container__banner-man">
+            <a href="@Url.Action("XemTheoDanhMuc","Product",new { MaDM = "DM01"})">
+                <img src="~/Images/for-man.jpg" alt="">
+                <label>Đồng hồ nam</label>
+            </a>
+        </div>
+
+        <div class="container__banner-woman">
+            <a href="@Url.Action("XemTheoDanhMuc","Product",new { MaDM = "DM02"})">
+                <img src="~/Images/for-woman.jpg" alt="">
+                <label>Đồng hồ nữ</label>
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/Assets/Admin/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Assets/Admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <link href="~/Assets/Admin/css/sb-admin-2.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Assets/Admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="~/Assets/Admin/js/sb-admin-2.min.js"></script>
+
+}

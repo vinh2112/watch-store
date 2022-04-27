@@ -1,0 +1,304 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TMDTModelStoreContainer" CdmEntityContainer="MainDbContext">
+    <EntitySetMapping Name="BRANDs">
+      <EntityTypeMapping TypeName="TMDTModel.BRAND">
+        <MappingFragment StoreEntitySet="BRAND">
+          <ScalarProperty Name="MaTH" ColumnName="MaTH" />
+          <ScalarProperty Name="TenTH" ColumnName="TenTH" />
+          <ScalarProperty Name="DiaChiTH" ColumnName="DiaChiTH" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DANHMUCs">
+      <EntityTypeMapping TypeName="TMDTModel.DANHMUC">
+        <MappingFragment StoreEntitySet="DANHMUC">
+          <ScalarProperty Name="MaDM" ColumnName="MaDM" />
+          <ScalarProperty Name="TenDM" ColumnName="TenDM" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DH_SP">
+      <EntityTypeMapping TypeName="TMDTModel.DH_SP">
+        <MappingFragment StoreEntitySet="DH_SP">
+          <ScalarProperty Name="STT" ColumnName="STT" />
+          <ScalarProperty Name="MaDH" ColumnName="MaDH" />
+          <ScalarProperty Name="MaSP" ColumnName="MaSP" />
+          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DONHANGs">
+      <EntityTypeMapping TypeName="TMDTModel.DONHANG">
+        <MappingFragment StoreEntitySet="DONHANG">
+          <ScalarProperty Name="MaDH" ColumnName="MaDH" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+          <ScalarProperty Name="NgayThang" ColumnName="NgayThang" />
+          <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+          <ScalarProperty Name="ChuThich" ColumnName="ChuThich" />
+          <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GIOHANGs">
+      <EntityTypeMapping TypeName="TMDTModel.GIOHANG">
+        <MappingFragment StoreEntitySet="GIOHANG">
+          <ScalarProperty Name="STT" ColumnName="STT" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="MaSP" ColumnName="MaSP" />
+          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="INFORMATION">
+      <EntityTypeMapping TypeName="TMDTModel.INFORMATION">
+        <MappingFragment StoreEntitySet="INFORMATION">
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="TenKH" ColumnName="TenKH" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SANPHAMs">
+      <EntityTypeMapping TypeName="TMDTModel.SANPHAM">
+        <MappingFragment StoreEntitySet="SANPHAM">
+          <ScalarProperty Name="MaSP" ColumnName="MaSP" />
+          <ScalarProperty Name="TenSP" ColumnName="TenSP" />
+          <ScalarProperty Name="MauSac" ColumnName="MauSac" />
+          <ScalarProperty Name="KichThuoc" ColumnName="KichThuoc" />
+          <ScalarProperty Name="Gia" ColumnName="Gia" />
+          <ScalarProperty Name="MaTH" ColumnName="MaTH" />
+          <ScalarProperty Name="NoiSX" ColumnName="NoiSX" />
+          <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+          <ScalarProperty Name="MaDM" ColumnName="MaDM" />
+          <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="USERS">
+      <EntityTypeMapping TypeName="TMDTModel.USER">
+        <MappingFragment StoreEntitySet="USERS">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserN" ColumnName="UserN" />
+          <ScalarProperty Name="PassW" ColumnName="PassW" />
+          <ScalarProperty Name="Roles" ColumnName="Roles" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ViewBRANDs">
+      <EntityTypeMapping TypeName="TMDTModel.ViewBRAND">
+        <MappingFragment StoreEntitySet="ViewBRAND">
+          <ScalarProperty Name="MaTH" ColumnName="MaTH" />
+          <ScalarProperty Name="TenTH" ColumnName="TenTH" />
+          <ScalarProperty Name="DiaChiTH" ColumnName="DiaChiTH" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ViewDANHMUCs">
+      <EntityTypeMapping TypeName="TMDTModel.ViewDANHMUC">
+        <MappingFragment StoreEntitySet="ViewDANHMUC">
+          <ScalarProperty Name="MaDM" ColumnName="MaDM" />
+          <ScalarProperty Name="TenDM" ColumnName="TenDM" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ViewDONHANGs">
+      <EntityTypeMapping TypeName="TMDTModel.ViewDONHANG">
+        <MappingFragment StoreEntitySet="ViewDONHANG">
+          <ScalarProperty Name="MaDH" ColumnName="MaDH" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+          <ScalarProperty Name="NgayThang" ColumnName="NgayThang" />
+          <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+          <ScalarProperty Name="ChuThich" ColumnName="ChuThich" />
+          <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ViewSANPHAMs">
+      <EntityTypeMapping TypeName="TMDTModel.ViewSANPHAM">
+        <MappingFragment StoreEntitySet="ViewSANPHAM">
+          <ScalarProperty Name="MaSP" ColumnName="MaSP" />
+          <ScalarProperty Name="TenSP" ColumnName="TenSP" />
+          <ScalarProperty Name="MauSac" ColumnName="MauSac" />
+          <ScalarProperty Name="KichThuoc" ColumnName="KichThuoc" />
+          <ScalarProperty Name="Gia" ColumnName="Gia" />
+          <ScalarProperty Name="MaTH" ColumnName="MaTH" />
+          <ScalarProperty Name="NoiSX" ColumnName="NoiSX" />
+          <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+          <ScalarProperty Name="MaDM" ColumnName="MaDM" />
+          <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ViewUSERS">
+      <EntityTypeMapping TypeName="TMDTModel.ViewUSER">
+        <MappingFragment StoreEntitySet="ViewUSERS">
+          <ScalarProperty Name="UserN" ColumnName="UserN" />
+          <ScalarProperty Name="Roles" ColumnName="Roles" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="TenKH" ColumnName="TenKH" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Admin_DANGNHAP" FunctionName="TMDTModel.Store.Admin_DANGNHAP" />
+    <FunctionImportMapping FunctionImportName="AnSANPHAM" FunctionName="TMDTModel.Store.AnSANPHAM" />
+    <FunctionImportMapping FunctionImportName="changeDONHANG" FunctionName="TMDTModel.Store.changeDONHANG" />
+    <FunctionImportMapping FunctionImportName="Check_SDT" FunctionName="TMDTModel.Store.Check_SDT" />
+    <FunctionImportMapping FunctionImportName="chiTietDonHang" FunctionName="TMDTModel.Store.chiTietDonHang">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TMDTModel.chiTietDonHang_Result">
+          <ScalarProperty Name="TenSP" ColumnName="TenSP" />
+          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="DANGKY" FunctionName="TMDTModel.Store.DANGKY" />
+    <FunctionImportMapping FunctionImportName="DANGNHAP" FunctionName="TMDTModel.Store.DANGNHAP" />
+    <FunctionImportMapping FunctionImportName="DoanhThu" FunctionName="TMDTModel.Store.DoanhThu" />
+    <FunctionImportMapping FunctionImportName="DoiMK" FunctionName="TMDTModel.Store.DoiMK" />
+    <FunctionImportMapping FunctionImportName="HienSANPHAM" FunctionName="TMDTModel.Store.HienSANPHAM" />
+    <FunctionImportMapping FunctionImportName="huyDONHANG" FunctionName="TMDTModel.Store.huyDONHANG" />
+    <FunctionImportMapping FunctionImportName="LayBRAND" FunctionName="TMDTModel.Store.LayBRAND">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TMDTModel.LayBRAND_Result">
+          <ScalarProperty Name="MaTH" ColumnName="MaTH" />
+          <ScalarProperty Name="TenTH" ColumnName="TenTH" />
+          <ScalarProperty Name="DiaChiTH" ColumnName="DiaChiTH" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="LayDANHMUC" FunctionName="TMDTModel.Store.LayDANHMUC">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TMDTModel.LayDANHMUC_Result">
+          <ScalarProperty Name="MaDM" ColumnName="MaDM" />
+          <ScalarProperty Name="TenDM" ColumnName="TenDM" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="LayDONHANG" FunctionName="TMDTModel.Store.LayDONHANG">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TMDTModel.LayDONHANG_Result">
+          <ScalarProperty Name="MaDH" ColumnName="MaDH" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+          <ScalarProperty Name="NgayThang" ColumnName="NgayThang" />
+          <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+          <ScalarProperty Name="ChuThich" ColumnName="ChuThich" />
+          <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="LaySANPHAM" FunctionName="TMDTModel.Store.LaySANPHAM">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TMDTModel.LaySANPHAM_Result">
+          <ScalarProperty Name="MaSP" ColumnName="MaSP" />
+          <ScalarProperty Name="TenSP" ColumnName="TenSP" />
+          <ScalarProperty Name="MauSac" ColumnName="MauSac" />
+          <ScalarProperty Name="KichThuoc" ColumnName="KichThuoc" />
+          <ScalarProperty Name="Gia" ColumnName="Gia" />
+          <ScalarProperty Name="MaTH" ColumnName="MaTH" />
+          <ScalarProperty Name="NoiSX" ColumnName="NoiSX" />
+          <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+          <ScalarProperty Name="MaDM" ColumnName="MaDM" />
+          <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="RECOMMAND" FunctionName="TMDTModel.Store.RECOMMAND">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TMDTModel.RECOMMAND_Result">
+          <ScalarProperty Name="MaSP" ColumnName="MaSP" />
+          <ScalarProperty Name="TenSP" ColumnName="TenSP" />
+          <ScalarProperty Name="MauSac" ColumnName="MauSac" />
+          <ScalarProperty Name="KichThuoc" ColumnName="KichThuoc" />
+          <ScalarProperty Name="Gia" ColumnName="Gia" />
+          <ScalarProperty Name="MaTH" ColumnName="MaTH" />
+          <ScalarProperty Name="NoiSX" ColumnName="NoiSX" />
+          <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+          <ScalarProperty Name="MaDM" ColumnName="MaDM" />
+          <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SuaBRAND" FunctionName="TMDTModel.Store.SuaBRAND" />
+    <FunctionImportMapping FunctionImportName="SuaDANHMUC" FunctionName="TMDTModel.Store.SuaDANHMUC" />
+    <FunctionImportMapping FunctionImportName="SuaDONHANG" FunctionName="TMDTModel.Store.SuaDONHANG" />
+    <FunctionImportMapping FunctionImportName="SuaINFORMATION" FunctionName="TMDTModel.Store.SuaINFORMATION" />
+    <FunctionImportMapping FunctionImportName="SuaSANPHAM" FunctionName="TMDTModel.Store.SuaSANPHAM" />
+    <FunctionImportMapping FunctionImportName="ThemBRAND" FunctionName="TMDTModel.Store.ThemBRAND" />
+    <FunctionImportMapping FunctionImportName="ThemDANHMUC" FunctionName="TMDTModel.Store.ThemDANHMUC" />
+    <FunctionImportMapping FunctionImportName="ThemDONHANG" FunctionName="TMDTModel.Store.ThemDONHANG" />
+    <FunctionImportMapping FunctionImportName="ThemSANPHAM" FunctionName="TMDTModel.Store.ThemSANPHAM" />
+    <FunctionImportMapping FunctionImportName="ThemUSERS" FunctionName="TMDTModel.Store.ThemUSERS" />
+    <FunctionImportMapping FunctionImportName="themvaogiohang" FunctionName="TMDTModel.Store.themvaogiohang" />
+    <FunctionImportMapping FunctionImportName="verifyDONHANG" FunctionName="TMDTModel.Store.verifyDONHANG" />
+    <FunctionImportMapping FunctionImportName="ViewGIOHANG" FunctionName="TMDTModel.Store.ViewGIOHANG">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TMDTModel.ViewGIOHANG_Result">
+          <ScalarProperty Name="MaSP" ColumnName="MaSP" />
+          <ScalarProperty Name="TenSP" ColumnName="TenSP" />
+          <ScalarProperty Name="MauSac" ColumnName="MauSac" />
+          <ScalarProperty Name="KichThuoc" ColumnName="KichThuoc" />
+          <ScalarProperty Name="Gia" ColumnName="Gia" />
+          <ScalarProperty Name="MaTH" ColumnName="MaTH" />
+          <ScalarProperty Name="NoiSX" ColumnName="NoiSX" />
+          <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+          <ScalarProperty Name="MaDM" ColumnName="MaDM" />
+          <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="SoLuong1" ColumnName="SoLuong1" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ViewOneUSERS" FunctionName="TMDTModel.Store.ViewOneUSERS">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TMDTModel.ViewOneUSERS_Result">
+          <ScalarProperty Name="UserN" ColumnName="UserN" />
+          <ScalarProperty Name="Roles" ColumnName="Roles" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="TenKH" ColumnName="TenKH" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="XemGioHang" FunctionName="TMDTModel.Store.XemGioHang">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TMDTModel.XemGioHang_Result">
+          <ScalarProperty Name="MaSP" ColumnName="MaSP" />
+          <ScalarProperty Name="TenSP" ColumnName="TenSP" />
+          <ScalarProperty Name="Gia" ColumnName="Gia" />
+          <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="TenKH" ColumnName="TenKH" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="XoaBRAND" FunctionName="TMDTModel.Store.XoaBRAND" />
+    <FunctionImportMapping FunctionImportName="XoaDANHMUC" FunctionName="TMDTModel.Store.XoaDANHMUC" />
+    <FunctionImportMapping FunctionImportName="XoaGIOHANG" FunctionName="TMDTModel.Store.XoaGIOHANG" />
+  </EntityContainerMapping>
+</Mapping>

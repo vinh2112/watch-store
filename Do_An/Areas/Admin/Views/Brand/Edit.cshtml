@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@model Do_An.Frameworks.BRAND
+<div class="card shadow mb-auto">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Thông Tin Thương Hiệu</h6>
+    </div>
+    <div class="card-body">
+        @if (TempData["Alert-Message"] != null)
+        {
+            <div class="alert @TempData["AlertType"]" id="success-alert">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <strong>@TempData["Alert-Message"]</strong>
+            </div>
+        }
+        @using (Html.BeginForm("Edit", "Brand", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            foreach (var item in ViewBag.Brand)
+            {
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="inputID">Mã Thương Hiệu</label>
+                        @Html.TextBoxFor(model => model.MaTH, new { @class = "form-control", id = "inputID", @Value = item.MaTH, @readonly = "readonly" })
+                    </div>
+                    <div class="form-group col-md-9">
+                        <label for="inputName">Tên Sản Phẩm</label>
+                        @Html.TextBoxFor(model => model.TenTH, new { @class = "form-control", id = "inputName", @Value = item.TenTH, required = "required" })
+                    </div>
+                </div>
+                <div class="dropdown-divider"></div>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="inputDiaChi">Địa chỉ</label>
+                        @Html.TextBoxFor(model => model.DiaChiTH, new { @class = "form-control", id = "inputDiaChi", Value = item.DiaChiTH, required = "required" })
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="inputPN">Số điện thoại</label>
+                        @Html.TextBoxFor(model => model.SDT, new { @class = "form-control", id = "inputPN", Value = item.SDT, required = "required", maxlength="10"})
+                    </div>
+                </div>
+                <div class="dropdown-divider"></div>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <img src="@item.HinhAnh" alt="Đồng hồ" class="img-thumbnail" style="width:260px;" id="output">
+
+                        @Html.TextBoxFor(model => model.HinhAnh, new { Value = item.HinhAnh, style = "display:none;" })
+                    </div>
+                    <div class="form-group col-md-5">
+                        <input type="file" id="file" name="file" accept="image/*" onchange="loadFile(event)" />
+                        <script>
+                            var loadFile = function (event) {
+                                var image = document.getElementById("output");
+                                image.src = URL.createObjectURL(event.target.files[0]);
+                            };
+                        </script>
+                    </div>
+                </div>
+            }
+            <div class="dropdown-divider"></div>
+            <div class="form-row flex-row-reverse">
+                <button class="btn btn-success" type="submit">Save</button>
+                <a href="@ViewBag.URL" class="btn btn-light btn-icon-split" style="margin-right:10px;">
+                    <span class="icon text-gray-600">
+                        <i class="fas fa-chevron-left"></i>
+                    </span>
+                    <span class="text">Back</span>
+                </a>
+            </div>
+        }
+    </div>
+</div>
+

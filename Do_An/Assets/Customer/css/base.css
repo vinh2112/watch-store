@@ -1,0 +1,42 @@
+:root{
+    --primary-color:rgba(225, 0, 87,0.9);
+}
+
+.grid {
+    width: 1210px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.grid__row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-left: -12px;
+    margin-right: -12px;
+    padding-bottom: 30px;
+}
+
+.grid__column-9.grid__column-9-heading {
+    display: flex;
+    justify-content: space-between;
+}
+
+.grid__column-3{
+    padding-left: 12px;
+    padding-right: 12px;
+    width: 25%;
+}
+
+.grid__column-3-4{
+    padding-left: 12px;
+    padding-right: 12px;
+    width: 33.3334%;
+    padding-top:30px;
+}
+
+.grid__column-9 {
+    padding-left: 12px;
+    padding-right: 12px;
+    width: 75%;
+}

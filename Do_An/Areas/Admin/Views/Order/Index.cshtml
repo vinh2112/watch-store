@@ -1,0 +1,141 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@model Do_An.Frameworks.DONHANG
+<div class="row">
+    <div class="col-sm-12 col-md-2">
+        <h1 class="h3 mb-2 text-gray-800">Đơn hàng</h1>
+    </div>
+    <div class="col-sm-12 col-md-10" style="text-align:end;">
+        <a class="btn btn-warning btn-icon-split" href="@Url.Action("Waiting")">
+            <span class="icon text-white-50">
+                <i class="fas fa-clipboard-list" style="color:white;"></i>
+            </span>
+            <span class="text">Đơn hàng đang chờ</span>
+        </a>
+        <a class="btn btn-warning btn-icon-split" href="@Url.Action("Shipping")">
+            <span class="icon text-white-50">
+                <i class="fas fa-shipping-fast" style="color:white;"></i>
+            </span>
+            <span class="text">Đơn hàng đang giao</span>
+        </a>
+        <a class="btn btn-warning btn-icon-split" href="@Url.Action("Canceled")">
+            <span class="icon text-white-50">
+                <i class="fas fa-ban" style="color:white;"></i>
+            </span>
+            <span class="text">Đơn hàng đã hủy</span>
+        </a>
+        <a class="btn btn-warning btn-icon-split disabled" href="">
+            <span class="icon text-white-50">
+                <i class="fas fa-clipboard-check" style="color:white;"></i>
+            </span>
+            <span class="text">Đơn hàng giao thành công</span>
+        </a>
+    </div>
+
+</div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Thống kê</h6>
+    </div>
+    <div class="card-body">
+        @if (TempData["Alert-Message"] != null)
+        {
+            <div class="alert @TempData["AlertType"]" id="success-alert">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <strong>@TempData["Alert-Message"]</strong>
+            </div>
+        }
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Mã DH</th>
+                        <th>Ngày đặt</th>
+                        <th>Nội dung</th>
+                        <th>Ngày giao</th>
+                        <th>Tổng tiền (đ)</th>
+                        <th>Shipper</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.Order)
+                    {
+                    <tr>
+                        <td>@item.MaDH</td>
+                        <td>@item.NgayThang.ToString("dd/MM/yyyy")</td>
+                        <td style="font-size:14px;">
+                            <b>Sản phẩm :</b> <br>
+                            @foreach (var name in ViewData[item.MaDH])
+                            {
+                                @name
+                                <br>
+                            }
+                            @if (item.TinhTrang != "Đang chờ")
+                            {
+
+                                <b>Thông tin khách hàng</b> @Html.Encode(" : "); @item.DiaChi
+                            }
+                            else
+                            {
+                                <a href="#" data-toggle="modal" data-target="#info@(item.MaDH)" type="button"><b>Thông tin khách hàng</b></a> @Html.Encode(" : "); @item.DiaChi
+                                using (Html.BeginForm("ChangeInfo", "Order", new { maDH = item.MaDH }))
+                                {
+                                    <div class="modal fade" id="info@(item.MaDH)" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Thay đổi thông tin khách hàng</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post">
+                                                        <div class="form-group">
+                                                            <label for="address-text" class="col-form-label">Địa chỉ:</label>
+                                                            <textarea class="form-control" id="address-text" name="DiaChi">@item.DiaChi</textarea>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-success">Change</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </td>
+                        @if (item.NgayXacNhan != null)
+                        {
+                            <td>@item.NgayXacNhan.ToString("dd/MM/yyyy")</td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+
+                        <td style="font-size:20px;">
+                            @if (item.TongTien != null)
+                            {
+                                @String.Format("{0:n0}", item.TongTien)
+                            }
+                        </td>
+                        <td>@item.TenShipper</td>
+
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/Assets/Admin/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Assets/Admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Assets/Admin/js/demo/datatables-demo.js"></script>
+}

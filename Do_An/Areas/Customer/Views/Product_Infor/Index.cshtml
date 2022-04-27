@@ -1,0 +1,213 @@
+﻿@model Do_An.Frameworks.SANPHAM
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Customer/Views/Shared/_Product.cshtml";
+}
+
+@section Title{
+    <title>@ViewBag.SANPHAM.TenSP</title>
+
+}
+
+<div class="inforproduct">
+    <div class="inforanhsp girdleft" style="margin: 0">
+        <div class="img-magnifier-container">
+            <img class="inforanh" src="@Model.HinhAnh" alt="IMG" width="300" id="imageProduct">
+        </div>
+        <div class="share_social" style="justify-content: center;">
+            <li class="header_navbar-item" style="list-style: none;">
+                <span class="nolight" style="list-style: none;">Chia sẻ</span>
+                <a href="https://www.facebook.com/ThanhBen.197?ref=bookmarks" class="header_navbar-itemlink" style="text-decoration: none;">
+                    <i class="navbar_icon fab fa-facebook-f"></i>
+                </a>
+                <a href="http://instagram.com" class="header_navbar-itemlink" style="text-decoration: none;">
+                    <i class="navbar_icon fab fa-instagram" style="color: #4C5FCA;"></i>
+                </a>
+                <a href="http://instagram.com" class="header_navbar-itemlink" style="text-decoration: none;">
+                    <i class="navbar_icon fas fa-envelope-open-text" style="color: #F14336;"></i>
+                </a>
+                <a href="http://instagram.com" class="header_navbar-itemlink" style="text-decoration: none;">
+                    <i class="navbar_icon fab fa-twitter" style="color: rgb(23, 162, 242);"></i>
+                </a>
+            </li>
+        </div>
+    </div>
+    <div class="inforchitiet girdright">
+        <h2 style="margin-left: 0; font-weight: normal;">@ViewBag.SANPHAM.TenSP</h2>
+        <h3 style="padding: 10px 30px 10px 35px  ;">@ViewBag.Brand</h3>
+        <h1 style="padding: 15px 0 ; font-weight: normal; color: rgba(225, 0, 87, 0.9); background-color: #fafafa;">
+            @if (ViewBag.SANPHAM.Discount != 0)
+            {
+                var tien = ViewBag.SANPHAM.Gia * ((float)(100 - ViewBag.SANPHAM.Discount) / 100);
+                <strike style="font-size:20px;color:darkgray">@String.Format("{0:n0}", ViewBag.SANPHAM.Gia)<sup>đ</sup></strike>
+                @String.Format("{0:n0}", tien)<sup>đ</sup>
+            }
+            else
+            {
+                @String.Format("{0:n0}", ViewBag.SANPHAM.Gia)<sup>đ</sup>
+            }
+        </h1>
+        <div class="typeProduct">
+            <h3 style="display: inline; flex-direction: column;flex-wrap: wrap; ">Mẫu Chọn</h3>
+            <div class="typeP">
+                <button class="typeBt">
+                    @ViewBag.SANPHAM.MauSac
+                </button>
+            </div>
+        </div>
+        <div class="soLuongSp">
+            <h3 style="margin-right: 15px;">Số Lượng</h3>
+            <button onclick='Giam()' class="btsoLuongh"style="font-size:25px; font-weight:200;">-</button>
+            <input type="text" class="btsoLuong" name="soluong" value="1" id="soluong" />
+            <button onclick='Tang()' class="btsoLuongh" style="font-size:25px; font-weight:200;">+</button>
+            <h3 style="margin-left: 10px;" id="tongsoluong">@ViewBag.SANPHAM.SoLuong sản phẩm</h3>
+        </div>
+        @{
+
+        }
+        <div class="muaSp">
+            <button onclick='AddToMyBag()' class="btthemSp" id="success">
+                <i class="fas fa-shopping-cart"></i>
+                <h4 style="margin-left: 5px; font-weight: normal;">Thêm Vào Giỏ Hàng</h4>
+            </button>
+            <button onclick='BuyNow()' class="btmuaSp" style="text-decoration:none;">
+                <h3>Mua Ngay</h3>
+            </button>
+        </div>
+    </div>
+
+</div>
+<div class="MotaSp">
+    <p class="Mota">Mô tả</p>
+    <p>
+        Đồng hồ không chỉ là dụng cụ để xem thời gian mà đồng hồ còn là một món đồ trang sức.
+        Ngày nay, vai trò “trang sức” của đồng hồ càng được nhấn mạnh.
+        Thậm chí đồng hồ chính là món trang sức thể hiện được rõ nét nhất cá tính của người mang nó.
+        Bộ sưu tập đồng hồ thời trang trẻ sau đây là một minh chứng.
+    </p><br>
+    <p>
+        Đối tượng của bộ sưu tập là các bạn trẻ năng động nên các mẫu  đồng hồ được thiết kế dựa trên tiêu chí “mạnh mẽ và trẻ trung”.
+        Mặt  đồng hồ được thiết kế tròn, to và dày cộm; các nút điều khiển lộ hẳn ra ngoài, trông rất cá tính; dây đồng hồ được thiết kế khá “gồ ghề” nhưng rất chắc chắn.
+        Điều đặc biệt là cách bố trí mặt đồng hồ với các kim chỉ giờ, chỉ phút có bản rộng, cộng với nhiều đồng hồ con để chỉ các ngày trong tuần, chỉ tháng, chỉ nhiệt độ,… thậm chí là để chỉ phương hướng như một la bàn.
+        Ngoài ra để tăng sức cuốn hút cho những món “trang sức” đồng hồ này, các nhà thiết kế quyết định chỉ dùng hai màu là trắng ánh kim và màu đen tuyền cho bộ sưu tập.
+        Đây là hai màu tương phản, nhưng khi được kết hợp hài hòa lại tạo nên hiệu ứng ánh sáng rất cuốn hút.
+    </p>
+</div>
+<div class="Recommand">
+    <h2>Gợi ý cho bạn</h2>
+    @*<div class="danhmucgoiy">
+            @foreach (var item in ViewBag.SameSanPham)
+            {
+                <a href="@Url.Action("Index", new { @masp= item.MaSP})" class="spRecommand gird3-3" style="text-decoration:none;">
+                    <img class="imgsp" src="@item.HinhAnh" ALT="IMG">
+                    <p style="margin-bottom: 8px; color: #F14336;">@item.TenSP</p>
+                    <p>@String.Format("{0:n0}", item.Gia) Đ</p>
+                </a>
+            }
+        </div>*@
+</div>
+@section grid{
+    <div class="grid__row">
+        <div class="grid__column-9">
+            <div class="grid__row">
+                @foreach (var item in ViewBag.SameSanPham)
+                {
+                    <div class="grid__column-3-4">
+                        <div class="product-item" style="text-align:center;">
+                            <a href="@Url.Action("Index", new { @masp= item.MaSP})" style="text-decoration:none;">
+                                <img class="product-item-img" src="@item.HinhAnh" />
+                                <div class="product-item-name">@item.TenSP</div>
+                                @if (item.Discount != 0)
+                                {
+                                    var tien = item.Gia * ((float)(100 - item.Discount) / 100);
+                                    <div class="product-item-price">
+                                        <strike style="font-size:15px;color:darkgray">@String.Format("{0:n0}", item.Gia)đ</strike> @String.Format("{0:n0}", tien) Đ
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="product-item-price">@String.Format("{0:n0}", item.Gia)đ</div>
+                                }
+                            </a>
+                        </div>
+
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+@section button{
+    <script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Assets/Customer/js/js-zoom.js"></script>
+    <script type="text/javascript">
+
+        function Tang() {
+            var soluong = document.getElementById('soluong').value;
+            var max = parseInt(@ViewBag.SANPHAM.SoLuong);
+            var value = parseInt(soluong);
+            if (value > max) {
+                alert("Bạn đã chọn quá số lượng cho phép")
+            }
+            else {
+                value = value + 1
+                document.getElementById('soluong').value = value;
+            }
+
+        }
+        function Giam() {
+            var soluong = document.getElementById('soluong').value;
+            var max = parseInt(@ViewBag.SANPHAM.SoLuong);
+            var value = parseInt(soluong);
+            if (value > 1) {
+                value = value - 1;
+                document.getElementById('soluong').value = value;
+            }
+        }
+        function AddToMyBag() {
+            var soluong = parseInt(document.getElementById('soluong').value);
+            var kh = '@Session["Customer"]';
+            if (kh == "") {
+                window.location.href = '/Login';
+            }
+            else {
+                var masp = '@ViewBag.SANPHAM.MaSP';
+                var soluong = parseInt(document.getElementById('soluong').value);
+                $.ajax({
+                    url: '@Url.Action("ThemGioHang","Cart")',
+                    data: { MaSP: masp, soluong: soluong },
+                    type: 'POST',
+                });
+                $(".notify").toggleClass("active");
+                $("#notifyType").toggleClass("success");
+                setTimeout(function () {
+                    $(".notify").removeClass("active");
+                    $("#notifyType").removeClass("success");
+                    location.reload();
+                }, 500);
+            }
+        }
+        function BuyNow() {
+            var kh = '@Session["Customer"]';
+            if (kh == "") {
+                window.location.href = '/Login';
+            }
+            else {
+                var masp = '@ViewBag.SANPHAM.MaSP';
+                var soluong = parseInt(document.getElementById('soluong').value);
+                $.ajax({
+                    url: '@Url.Action("ThemGioHang","Cart")',
+                    data: { MaSP: masp, soluong: soluong },
+                    type: 'POST',
+                    success:
+                        window.location.href = '@Url.Action("Index", "ThanhToan", new { sdt = Session["Phone"].ToString()})'
+                });
+            }
+        }
+    </script>
+    <script>
+        magnify("imageProduct", 3);
+    </script>
+}
+
+

@@ -1,0 +1,47 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/Assets/Customer/css/style.css">
+    <link rel="stylesheet" href="~/Assets/Customer/css/base.css">
+    <link rel="stylesheet" href="~/Assets/Customer/fonts/fontawesome-free-5.15.1-web/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>NOLOGO</title>
+</head>
+<body>
+    <div class="form">
+        <div class="form_content">
+            <a class="header__logo" href="@Url.Action("Index","Home", new { area = "Customer"})" style="display:block; color:var(--primary-color); border:2px solid var(--primary-color);width: 172px; margin: auto;">Nologo</a>
+            <div class="content">
+                <p style="font-size:24px; padding-top:16px;">Lấy lại mật khẩu</p>
+                <p style="padding:8px 0 32px;">Nhập mã OTP</p>
+            </div>
+            @using (Html.BeginForm("Verify", "Login", FormMethod.Post))
+            {
+                <input type="text" id="OTP" name="OTP" maxlength="6" style=" display: block; width: 30%; line-height: 40px; font-size: 25px; border-radius: 5px; border: 2px solid var(--primary-color); outline: none; text-align: center; margin: 0 auto 32px;" placeholder="- - - - - -" onfocus="typePass()"  autocomplete="off" required>
+                <div class="signup__form-function" style="margin: 0; float: right;">
+                    <button type="submit" class="btn__Signup" style="display: flex; align-items: center;"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            }
+            @if (TempData["Error"] != null)
+            {
+                <div style="position:absolute; width:100%; font-weight:500; color:var(--primary-color);" id="warning">
+                    * @TempData["Error"]
+                </div>
+            }
+        </div>
+    </div>
+    <script type="text/javascript">
+        function typePass() {
+            document.getElementById("warning").style.visibility = "hidden";
+        }
+    </script>
+</body>
+</html>

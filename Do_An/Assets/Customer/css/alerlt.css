@@ -1,0 +1,44 @@
+﻿
+  .notify{ 
+      
+    z-index: 3;
+    position:absolute;
+    top:0px;
+    width:100%;
+    height:0;  
+    box-sizing:border-box;
+    color:white;  
+    text-align:center;
+    background:rgba(0,0,0,.6);
+    overflow:hidden;
+    box-sizing:border-box;
+    transition:height .2s;
+  }
+  .active{  
+    height:50px;
+  }
+  
+  .success:before{
+    Content:"Thêm vào giỏ hàng thành công!";
+  }
+  
+  .failure:before{
+    Content:"Oh no! Gặp lỗi rồi :(";
+  }
+
+  .option{
+    display: none;
+    position:  absolute;
+    width: 20%;
+    background-color: rgb(255, 255, 255);
+    z-index: 2;
+    list-style: none;
+    border-radius: 5px;
+  }
+  .container_navbar-item-catalog:hover .option{
+    display: block;
+  }
+  .option_choice{
+    padding-left: 5px;
+    color: rgb(255, 0, 51);
+  }

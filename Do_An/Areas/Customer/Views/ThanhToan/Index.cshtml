@@ -1,0 +1,361 @@
+﻿@model Do_An.Areas.Customer.Models.THANHTOAN
+
+@{ 
+
+    string addressString = "";
+    string detailCus = "";
+    string address = "";
+    if (ViewBag.Detail != null)
+    {
+        foreach (var item in ViewBag.Detail)
+        {
+            addressString = item.TenKH + " " + item.SDT + " " + item.DiaChi;
+            detailCus = item.TenKH + " " + item.SDT;
+            address = item.DiaChi;
+        }
+    }
+}
+
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh toán</title>
+    <link rel="stylesheet" href="~/Assets/Customer/css/ThanhToan.css">
+    <link rel="stylesheet" href="~/Assets/Customer/css/style.css">
+    <link href="~/Assets/Customer/fonts/fontawesome-free-5.15.1-web/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="~/Assets/Admin/css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+<body>
+    @if (TempData["Alert-Message"] != null)
+    {
+        <div class="alert alert-success text-center" role="alert" id="alert" style="position:fixed; width:100%;z-index:10;">
+            @TempData["Alert-Message"]
+        </div>
+        <script>
+            setTimeout(function () {
+                window.location.href = '@Url.Action("Index","Home")';
+            }, 2000);
+        </script>
+    }
+
+    <div class="header">
+        <div class="main__header-container">
+            <div class="main__header-logo">
+                <a href="@Url.Action("Index","Home")" class="logo">NoLogo</a>
+            </div>
+        </div>
+        <div class="main__header-head">
+            <ul class="main__header-list">
+                <li class="main__header-item icon"><a href="" style="text-decoration: none;"><i class="header-icon far fa-question-circle"></i>Trợ giúp</a></li>
+                <li class="main__header-item"><a> @Session["Customer"]</a></li>
+            </ul>
+        </div>
+    </div>
+    @using (Html.BeginForm("Index", "ThanhToan"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(false);
+        <div class="container" style="min-width:100%;">
+            @{ int dem = 0;
+                        int dem1 = 0;
+                        foreach (var i in ViewBag.GioHang)
+                        {
+                            if (TempData["CheckSL" + dem1] != null)
+                            {
+                        <div class="alert alert-danger" id="success-alert">
+                            <button type="button" class="close" data-dismiss="alert">x</button>
+                            <strong>@TempData["CheckSL" + dem1]</strong>
+                        </div>
+                    }
+                dem1 += 1;
+                    dem = dem + i.SoLuong;
+                }
+            }
+            <div class="page">
+                <div class="page__header item">
+                    Thanh toán
+                </div>
+
+                <div class="page__Adr item">
+                    <div class="page__Adr-name">
+                        <i class="fas fa-map-marker-alt"> Địa chỉ nhận hàng</i>
+
+                    </div>
+                    <div class="page__Adr-container">
+                        <div class="page__Adr-detail" style="display:flex;">
+                            <input type="text" class="page__Adr-detail" id="DiaChi" name="diachi" style="display:none;" value="@addressString">
+                            <input type="hidden" id="addressString" value="@addressString" />
+                            <div id="detailUser" style="font-size: 18px; font-weight:700;">@detailCus</div>
+                            <input type="hidden" id="detailCus" value="@detailCus" />
+                            <div id="Addres" style="font-size: 18px; margin-left:20px;">@address</div>
+                            <input type="hidden" id="address" value="@address" />
+                        </div>
+                        <div class="page__Adr-default" onclick="defaultInfo()" style="color:#848484; border-width: 0; background-color: white; display:none; cursor:pointer;" id="btnDefault">
+                            Mặc định
+                        </div>
+                        <div class="page__thanhtoan-header-method1 button" onclick="show_hide()">THAY ĐỔI</div>
+                    </div>
+                </div>
+                <div class="page__productlist item">
+                    <div class="page__productlist-header">
+                        <div class="page__productlist-header-F1">Sản phẩm</div>
+                        <div class="page__productlist-item">Đơn giá</div>
+                        <div class="page__productlist-item">Số lượng</div>
+                        <div class="page__productlist-item thanhtien">Thành tiền</div>
+                    </div>
+                    @{
+                        foreach (var i in ViewBag.GioHang)
+                        {
+                            var gia = i.Gia * ((float)(100 - i.Discount) / 100);
+                            <div class="page__productlist-container">
+                                <div class="page__productlist-container-F1">
+                                    <img src="@i.HinhAnh" alt="" style="margin: 0 8px;">
+                                    <div class="page__productlist-container-F1-detail" style="margin-left:8px;">
+                                        @i.TenSP
+                                    </div>
+                                </div>
+
+                                <div class="page__productlist-item productlist">@gia.ToString("N0")<sup>đ</sup></div>
+                                <div class="page__productlist-item productlist">@i.SoLuong</div>
+                                <div class="page__productlist-item productlist thanhtien"><sup>đ</sup>@String.Format("{0:N0}", gia * i.SoLuong)</div>
+                            </div>
+                        }
+                    }
+                    <div class="page__productlist-footer">
+                        <div class="page__productlist-footer-note">
+                            <div>Lời nhắn: </div>
+                            @Html.TextBoxFor(m => m.ChuThich, new { @class = "page__productlist-footer-note input", @name = "TBluuY", @placeholder = "Lưu ý cho người bán" })
+                        </div>
+                        <div class="page__productlist-footer-1">Thời gian vận chuyển</div>
+                        <div class="page__productlist-footer-2" style="float:right;">@String.Format("{0:dd/MM/yyyy}", DateTime.Now.AddDays(3)) - @String.Format("{0:dd/MM/yyyy}", DateTime.Now.AddDays(4))</div>
+                    </div>
+                    <div class="page__productlist-CheckOut">
+                        <div class="page__productlist-CheckOut-1">Tổng số tiền (@dem sản phẩm):</div>
+                        <div class="page__productlist-CheckOut-2"> @ViewBag.ThanhToan.ToString("N0")<sup>đ</sup></div>
+                    </div>
+                </div>
+                <div class="page__thanhtoan item">
+                    <div class="page__thanhtoan-header">
+                        <div class="page__thanhtoan-header-method">Phương thức thanh toán</div>
+                        <div class="page__thanhtoan-header-method" style="justify-content:center;">
+                            <input type="text" style="display: none;" name="pttt" value="Thanh toán khi nhận hàng" id="payy" />
+                            <p id="paymethod" style="display:contents; font-size:15px;">Thanh toán khi nhận hàng</p>
+                        </div>
+                        <div class="page__thanhtoan-header-method1 button" onclick="show_hide_1()">THAY ĐỔI</div>
+                    </div>
+                    <div class="page__thanhtoan-container">
+                        <input type="submit" id="btnDatHang" class="page__thanhtoan-container-button" name="btnDatHang" UseSubmitBehavior="false" value="Đặt hàng" formaction="@Url.Action("Index", new { @diachi = @ViewBag.DiaChi, @pttt= @ViewBag.PhuongThucTT, @sdt = Session["Phone"].ToString() })">
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.6); display: none;" id="show-hide" onclick="show_hide_off()">
+
+    </div>
+    @*form đổi địa chỉ*@
+    <div id="show-hide1" style="display: none;">
+        <div class="login__form" style=" transform: translate(0%,-15%); top: 20%; color:black; height: fit-content;">
+            <h1 class="login__form-title" style="font-size: 24px;">Thay đổi thông tin</h1>
+            <div class="login__form-input">
+                <div>
+                    <input type="text" required id="text-SDT" name="SDT">
+                    <div class="underline"></div>
+                    <label for="SDT">SDT</label>
+                </div>
+            </div>
+            <div class="login__form-input">
+                <div>
+                    <input type="text" required id="text-Ten" name="TenKH">
+                    <div class="underline"></div>
+                    <label for="TenKH">Tên</label>
+                </div>
+            </div>
+
+            <div class="login__form-input">
+                <div>
+                    <input type="text" required id="text-DiaChi" name="DiaChi">
+                    <div class="underline"></div>
+                    <label for="DiaChi">Địa Chỉ</label>
+                </div>
+            </div>
+            <input type="submit" UseSubmitBehavior="false" class="page__thanhtoan-container-button" style="width: 300px; height: 45px; margin: 35px 50px;  font-weight: 700; " id="btnXacNhan" onclick="changeAddress(), show_hide_off()" value="Xác Nhận">
+        </div>
+    </div>
+    @*form phương thức thanh toán*@
+    <div id="show-hide_1_1" style="display: none;">
+        <div class="login__form" style=" transform: translate(0%,-15%); height: fit-content;  top:30%; color:black;">
+            <h1 class="login__form-title" style="font-size: 24px;">Phương Thức Giao Hàng</h1>
+            <div style="display: flex;">
+                <div style="font-size: 20px; margin-left: 12px;  padding-right: 48px;">
+                    Thanh toán khi nhận hàng
+                </div>
+                <div style="width:20px; height:20px; margin:auto; margin-left: 44px;">
+                    <input type="radio" style=" width: 100%; height: 1.6em; margin-left: 30px;" name="rdo" id="COD" checked/>
+                </div>
+            </div>
+            <div style="display: flex; padding-top: 20px; justify-content:center; align-items: center;">
+                <div style="font-size: 20px; margin-left: 12px; justify-content: center;">
+                    Thanh toán online(visa, mastercard,...)
+                </div>
+                <div style="width:20px; height:20px; margin: auto; justify-content: center;">
+                    <input type="radio" style=" width: 100%; height: 1.6em;" name="rdo" id="banking" />
+                </div>
+            </div>
+            <input type="submit" UseSubmitBehavior="false" class="page__thanhtoan-container-button" style="width: 300px; height: 45px; margin: 35px 50px;  font-weight: 700; " id="btnXacNhan" onclick="changePTTT(), show_hide_off()" value="Xác Nhận">
+        </div>
+    </div>
+    <!--footer-->
+    <footer class="footer" style=" margin-top: auto;">
+        <div class="gird">
+            <div class="gird_row gird_row2">
+                <div style="margin-left:4%;" class="gird_column2-4">
+                    <h3 class="footer_heading"> CSKH</h3>
+                    <ul class="footer_heading-list">
+                        <li class="footer-item">
+                            <a href="" class="footer-link">Trung tâm giới thiệu</a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="" class="footer-link">ClockID Mall</a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="" class="footer-link">Hướng dẫn mua hàng</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="gird_column2-4">
+                    <h3 class="footer_heading">Thắc mắc</h3>
+                    <ul class="footer_heading-list">
+                        <li class="footer-item">
+                            <a href="" class="footer-link">Liên hệ với FB</a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="" class="footer-link">Liên hệ với Instagram</a>
+
+                        </li>
+                    </ul>
+                </div>
+                <div class="gird_column2-4">
+                    <h3 class="footer_heading">Theo dõi tôi trên</h3>
+                    <ul class="footer_heading-list">
+                        <li class="footer-item">
+                            <a href="" class="footer-link">
+                                <i class="fab fa-facebook"></i> Facebook
+                            </a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="" class="footer-link">
+                                <i class="fab fa-instagram"></i> Instagram
+                            </a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="" class="footer-link">
+                                <i class="fab fa-twitter-square"></i>Twitter
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="gird_column2-4">
+                    <h3 class="footer_heading">Hổ trợ khách hàng</h3>
+                    <ul class="footer_heading-list">
+                        <li class="footer-item">
+                            <a href="" class="footer-link">Dịch vụ</a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="" class="footer-link">Thái độ</a>
+
+                        </li>
+                    </ul>
+                </div>
+                <div class="gird_column2-4 special">
+                    <h3 class="footer_heading">Truy cập ứng dụng</h3>
+                    <ul class="footer_heading-list">
+                        <li class="footer-item">
+                            <a href="" class="footer-link">Trung tâm giới thiệu</a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="" class="footer-link">ClockID Mall</a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="" class="footer-link">Hướng dẫn mua hàng</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-3.4.1.js"></script>
+    <script type="text/javascript">
+        function show_hide() {
+
+            document.getElementById("show-hide").style.display = "block";
+            document.getElementById("show-hide1").style.display = "block";
+        }
+        function show_hide_off() {
+            document.getElementById("show-hide").style.display = "none";
+            document.getElementById("show-hide1").style.display = "none";
+            document.getElementById("show-hide_1_1").style.display = "none";
+        }
+        function show_hide_1() {
+
+            document.getElementById("show-hide").style.display = "block";
+            document.getElementById("show-hide_1_1").style.display = "block";
+        }
+        function changePTTT() {
+            var value1 = $("#COD").prop("checked")
+            var value2 = $("#banking").prop("checked")
+            if (value1 == true) {
+                $("#paymethod").text("Thanh toán khi nhận hàng");
+                $("#payy").val("Thanh toán khi nhận hàng");
+            }
+            if (value2 == true) {
+                $("#paymethod").text("Thanh toán online(visa, mastercard, ...)");
+                $("#payy").val("Thanh toán online(visa, mastercard, ...)");
+            }
+        }
+        function changeAddress() {
+
+            var Ten = document.getElementById('text-Ten').value;
+            var SDT = document.getElementById('text-SDT').value;
+            var DiaChi = document.getElementById('text-DiaChi').value;
+
+            //Kiểm tra dữ liệu hợp lệ hay không
+            if (SDT == '') {
+                alert('Bạn chưa nhập số điện thoại');
+            }
+            else if (Ten == '') {
+                alert('Bạn chưa nhập tên');
+            }
+            else if (DiaChi == '') {
+                alert('Bạn chưa nhập địa chỉ');
+            }
+            else {
+                var txt = $("#text-SDT").val() + " " + $("#text-Ten").val() + " " + $("#text-DiaChi").val();
+                var detail = $("#text-Ten").val() + " " + $("#text-SDT").val();
+                var address = $("#text-DiaChi").val();
+                $("#Addres").text(address);
+                $("#detailUser").text(detail);
+                $("#DiaChi").val(txt);
+                show_hide_off();
+                document.getElementById('btnDefault').style.display = "block";
+                return true;
+            }
+            return false;
+        }
+        function defaultInfo() {
+            $("#DiaChi").val(document.getElementById('addressString').value);
+            $("#Addres").text(document.getElementById('address').value);
+            $("#detailUser").text(document.getElementById('detailCus').value);
+            document.getElementById('btnDefault').style.display = "none";
+        }
+        $(function () {
+            $('#success-alert').removeClass('container');
+            $('#success-alert').delay(5000).slideUp(500);
+        }
+        )
+    </script>
+</body>

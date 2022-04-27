@@ -1,0 +1,92 @@
+﻿@{
+    Layout = null;
+}
+@model Do_An.Models.UserModel
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/Assets/Customer/css/style.css">
+    <link rel="stylesheet" href="~/Assets/Customer/css/base.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>Document</title>
+    <style>
+        * {
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup">
+        <div class="header">
+            <a href="@Url.Action("Index","Home", new { area = "Customer"})" class="header__logo">Nologo</a>
+            <label>Đăng ký</label>
+        </div>
+
+        <div class="signup__form">
+            @using (Html.BeginForm())
+            {
+                <div class="signup__form-form">
+                    <h1>WELCOME TO MY STORE</h1>
+                    <h3>Đăng ký</h3>
+                    <div class="signup__form-info">
+                        <div class="signup__form-input">
+                            @Html.TextBoxFor(model => model.HoTen, new { @required = "required" })
+                            <div class="underline"></div>
+                            <label>Họ và tên</label>
+                        </div>
+                        <div class="signup__form-input">
+                            @Html.TextBoxFor(model => model.SDT, new { @required = "required" })
+                            <div class="underline"></div>
+                            <label>Số điện thoại</label>
+                        </div>
+                        <div class="signup__form-input">
+                            @Html.TextBoxFor(model => model.Email, new { @required = "required" })
+                            <div class="underline"></div>
+                            <label>Email</label>
+                        </div>
+                        <div class="signup__form-password">
+                            <div class="signup__form-input">
+                                @Html.PasswordFor(model => model.Passowrd, new { @required = "required" })
+                                <div class="underline"></div>
+                                <label>Mật khẩu</label>
+                            </div>
+                            <div class="signup__form-input">
+                                @Html.PasswordFor(model => model.ReenterPassword, new { @required = "required" })
+                                <div class="underline"></div>
+                                <label>Xác nhận mật khẩu</label>
+                            </div>
+                        </div>
+                        <div class="signup__form-input">
+                            @Html.TextBoxFor(model => model.DiaChi, new { @required = "required" })
+                            <div class="underline"></div>
+                            <label>Địa chỉ</label>
+                        </div>
+                    </div>
+                </div>
+                if (TempData["Error"] != null)
+                {
+                    <div style="position:absolute; top:75px; left:100px; padding:0 30px; width:100%; font-weight:500; color:var(--primary-color);" id="warning">
+                        * @TempData["Error"]
+                    </div>
+                    if(TempData["Error"] == "Đăng ký thành công")
+                    {
+                        <script>
+                            setTimeout(function () {
+                                window.location.href = '/Login';
+                            }, 2000);
+                        </script>
+                    }
+                }
+                <div class="signup__form-function">
+                    @Html.ActionLink("Đăng nhập", "Index", new { controller = "Login" }, new { @class = "btn__Login" })
+                    <input class="btn__Signup" type="submit" value="Đăng ký" />
+                </div>
+            }
+
+        </div>
+
+
+    </div>
+</body>
+</html>

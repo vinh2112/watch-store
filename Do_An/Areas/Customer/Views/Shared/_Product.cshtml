@@ -1,0 +1,238 @@
+﻿
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="~/Assets/Customer/css/style.css">
+    <link rel="stylesheet" href="~/Assets/Customer/css/base.css">
+    <link rel="stylesheet" href="~/Assets/Customer/css/news.css">
+    <link rel="stylesheet" href="~/Assets/Customer/css/detailproduct.css">
+    <link rel="stylesheet" href="/Assets/Customer/css/alerlt.css">
+    <link href="~/Assets/Customer/css/product.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Assets/Customer/fonts/fontawesome-free-5.15.1-web/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    @RenderSection("Title", required: false)
+    <style>
+        .dropdown-divider {
+            height: 0;
+            margin: .5rem 0;
+            overflow: hidden;
+            border-top: 1px solid #eaecf4;
+        }
+        .mr-2 {
+            margin-right: .5rem !important;
+        }
+        .text-gray-400 {
+            color: #d1d3e2 !important;
+        }
+    </style>
+</head>
+<body>
+    @using Do_An.Frameworks;
+    @using System.Linq;
+
+    @{
+        UrlPreviour.Value = Request.Url.ToString();
+        MainDbContext db = new MainDbContext();
+        var brand = db.BRANDs.OrderBy(x => x.MaTH);
+        ViewBag.Brand = brand;
+        ViewBag.Category = db.DANHMUCs.OrderBy(x => x.MaDM);
+        if (Session["Phone"] != null)
+        {
+            var sdt = Session["Phone"].ToString();
+            ViewBag.GioHang = null;
+            var giohang = (from s in db.GIOHANGs where s.SDT == sdt select s);
+            if (giohang.Count() != 0)
+            {
+                ViewBag.GioHang = giohang;
+            }
+        }
+        else
+        {
+            Session["Phone"] = "";
+        }
+    }
+    <div id="page-top">
+        <div class="main">
+            <div class="main__header">
+                <div class="main__header-head">
+                    <div class="notify" style="background-color: rgba(0, 0, 0, 0.6)"><span id="notifyType" class="active" style=" color: rgb(255, 255, 255)"></span></div>
+                    <ul class="main__header-connect">
+                        <li class="main__header-item icon"><a href=""><i class="header-icon fab fa-facebook-square"></i></a></li>
+                        <li class="main__header-item icon"><a href=""><i class="header-icon fab fa-instagram"></i></a></li>
+                    </ul>
+
+                    <ul class="main__header-list">
+                        <li class="main__header-item icon"><a href=""><i class="header-icon far fa-question-circle"></i>Trợ giúp</a></li>
+                        @if (Session["Customer"] == null)
+                        {
+                            <li class="main__header-item"><a href="@Url.Action("Index","Signup", new { area = ""})">Đăng ký</a></li>
+                            <li class="main__header-item"><a href="@Url.Action("Index","Login", new { area = ""})">Đăng nhập</a></li>
+                        }
+                        else
+                        {
+                            <li class="main__header-item container_navbar-item-catalog">
+                                <a href="#">
+                                    @Session["Customer"] <i class="container_navbar-icon fas fa-caret-down"></i>
+                                </a>
+                                <ul class="container_navbar-option-list" style="width:120px; right: 50px; z-index:10;">
+                                    <li class="container_navbar-option-item">
+                                        <a href="@Url.Action("Index","InfoCustomer")" style="text-decoration: none;color: #333;padding-left: 10px;"><i class="fas fa-user-circle fa-sm fa-fw mr-2 text-gray-400"></i>Thông tin</a>
+                                    </li>
+                                    <li class="container_navbar-option-item">
+                                        <a href="@Url.Action("Logout","Cart", new { sdt= Session["Phone"].ToString()})" style="text-decoration: none;color: #333;padding-left: 10px;"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Đăng xuất</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div class="main__header-container">
+                    <div class="main__header-logo">
+                        <a href="@Url.Action("Index","Home")" class="logo">NoLogo</a>
+                    </div>
+
+                    <div class="main__header-search">
+                        <form method="get" action="@Url.Action("TimKiem","Product")">
+                            <input type="checkbox" id="check-search">
+                            <div class="search-box">
+                                <div class="search-txt-wrap">
+                                    <input type="text" id="txtSearch" class="search-txt" name="timkiem" placeholder="Tìm kiếm">
+                                    <input type="submit" value="" style="opacity:0;">
+                                </div>
+                                <label for="check-search" class="search-btn"><i class="fas fa-search"></i></label>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="main__header-cart">
+                        <div class="main__header-cart-wrap">
+                            <a href="@Url.Action("Index","Cart" , new { sdt= Session["Phone"].ToString()})" style="z-index:9;">
+                                <i class="header__cart-icon fas fa-shopping-cart"></i>
+                            </a>
+                            @if (ViewBag.GioHang == null)
+                            {
+                                <div class="main__header-cart-list main__header-cart-list--no-cart">
+                                    <img src="/images/no-cart.png" alt="" class="main__header-cart-no-cart-img">
+                                    <p class="main__header-list-no-cart-msg">
+                                        Chưa có sản phẩm
+                                    </p>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="main__header-cart-list main__header-cart-list--no-cart">
+                                    @foreach (var item in ViewBag.GioHang)
+                                    {
+                                        <div class="cart-item">
+                                            <img src="@item.SPimg" class="cart-item-img" />
+                                            <div class="cart-item-name">
+                                                @item.tenSP
+                                            </div>
+                                            <div class="cart-item-price">
+                                                @String.Format("{0:n0}", item.DonGia)đ
+                                            </div>
+                                        </div>
+                                        <div class="dropdown-divider"></div>
+                                    }
+                                    <div class="cart-button">
+                                        <a href="@Url.Action("Index", "Cart", new { sdt = Session["Phone"].ToString()})" class="cart-button-a" style="padding:5px 15px 5px 15px; text-decoration:none">Xem giỏ hàng</a>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main__container">
+                <div class="container_navbar">
+                    <ul class="container_navbar-list">
+                        <li class="container_navbar-item">
+                            <a href="@Url.Action("Index","Home")" class="container_navbar-main">
+                                @if (TempData["Selected"].ToString() == "Main")
+                                {<b style="font-weight:bold">Trang chủ</b>}
+                                else
+                                { @Html.Encode("Trang chủ");
+                            }
+                            </a>
+                        </li>
+                        <li class="container_navbar-item container_navbar-item-catalog">
+                            <a href="@Url.Action("Index","Product")" class="container_navbar-main">
+                                @if (TempData["Selected"].ToString() == "Category")
+                                {<b style="font-weight:bold">Danh mục</b>}
+                                else
+                                { @Html.Encode("Danh mục");
+                            }
+                                <i class="container_navbar-icon fas fa-caret-down"></i>
+                            </a>
+
+                            <ul class="container_navbar-option-list">
+                                @foreach (var kem in ViewBag.Category)
+                                {
+                                    <li class="container_navbar-option-item"><a href="@Url.Action("XemTheoDanhMuc", "Product", new { MaDM = kem.MaDM})">@kem.TenDM</a></li>
+                                }
+                            </ul>
+                        </li>
+                        <li class="container_navbar-item container_navbar-item-catalog">
+                            <a href="@Url.Action("Index","Product")" class="container_navbar-main">
+                                @if (TempData["Selected"].ToString() == "Brand")
+                                {<b style="font-weight:bold">Thương hiệu</b>}
+                                else
+                                { @Html.Encode("Thương hiệu");
+                            }
+                                <i class="container_navbar-icon fas fa-caret-down"></i>
+                            </a>
+
+                            <ul class="container_navbar-option-list">
+                                @foreach (var sua in ViewBag.Brand)
+                                {
+                                    <li class="container_navbar-option-item"><a href="@Url.Action("XemTheoThuongHieu", "Product", new { MaTH = sua.MaTH })">@sua.TenTH</a></li>
+                                }
+                            </ul>
+                        </li>
+                        <li class="container_navbar-item">
+                            <a href="@Url.Action("ViewTinTuc","Product")" class="container_navbar-main">
+                                @if (TempData["Selected"].ToString() == "News")
+                                {<b style="font-weight:bold">Tin tức</b>}
+                                else
+                                { @Html.Encode("Tin tức");
+                            }
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="container__content-heading" style="max-width: 71%; margin: 0 auto;">
+                    <ul>
+                        <li><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
+                        <li><a href="@Url.Action("Index","Product")">Sản Phẩm</a></li>
+                        <li><strong style="font-weight:bold">@ViewBag.SANPHAM.TenSP</strong></li>
+                    </ul>
+                </div>
+                <div class="Content gird" style="max-width: 71%; margin: 0 auto;">
+                    @RenderBody()
+                </div>
+                <div class="grid">
+                    @RenderSection("grid", required: true)
+                </div>
+                <div class="main__footer">
+                    <div class="main__footer-item">
+                        <i class="fas fa-fighter-jet"></i>
+                        <p>FREESHIP</p>
+                    </div>
+                    <div class="main__footer-item">
+                        <i class="fas fa-box-open"></i>
+                        <p>Hoàn trả miễn phí</p>
+                    </div>
+                    <div class="main__footer-item">
+                        <i class="fas fa-tools"></i>
+                        <p>Bảo hành 2 năm</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @RenderSection("button", required: true)
+</body>
+</html>

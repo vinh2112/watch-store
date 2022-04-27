@@ -1,0 +1,338 @@
+﻿
+@{
+    Layout = null;
+}
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ Hàng</title>
+    <link rel="stylesheet" href="~/Assets/Customer/css/GioHang.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/Assets/Customer/fonts/fontawesome-free-5.15.1-web/css/all.min.css">
+
+</head>
+
+<body>
+    <div class="main__header">
+        <div class="main__header-head">
+            <ul class="main__header-list">
+                <li class="main__header-item icon"><a href=""><i class="header-icon far fa-question-circle"></i>Trợ giúp</a></li>
+                <li class="main__header-item"><a href="" style="text-decoration:none"> @Session["Customer"]</a></li>
+            </ul>
+        </div>
+        <div class="main__header-container">
+            <div class="main__header-logo">
+                <a href="@Url.Action("Index", "Home")" class="logo">NOLOGO</a>
+            </div>
+        </div>
+    </div>
+
+    @if (ViewBag.GioHang == null)
+    {
+        <div>
+            Giỏ hàng của bạn trống rồi !!
+        </div>
+    }
+    else
+    {
+        decimal total = 0; /*bientongcong*/
+        int i = 0;
+        <div class="container">
+            <div class="body">
+                <div class=body__header-name>
+                    Giỏ hàng của bạn
+                </div>
+                <div class="body__header-time">
+                    <span id="datetime" />
+                </div>
+                <div class="body__header">
+                    <div class="body__header-sanpham">Sản Phẩm</div>
+                    <div class="body__productlist-item heading">Đơn giá</div>
+                    <div class="body__productlist-item heading">Số lượng</div>
+                    <div class="body__productlist-item heading">Số tiền</div>
+                    <div class="body__productlist-item heading">Thao tác</div>
+                </div>
+                <div class="body__productlist">
+                    @foreach (var item in ViewBag.GioHang)
+                    {
+                        i = i + item.SoLuong;
+                        decimal tien = (decimal)item.ThanhTien;
+                        <div class="body__productlist-content">
+                            <div class="body__productlist-img">
+                                <a href="@Url.Action("Index", "Product_Infor", new { Masp = item.MaSP})" title="Dong Ho Mondre">
+                                    <img src="@item.SPimg" alt="IMG">
+                                </a>
+                            </div>
+                            <div class="body__productlist-name">
+                                <a class="body__productlist-name-link" href="@Url.Action("Index", "Product_Infor", new { Masp = item.MaSP})" title="@item.tenSP">
+                                    @item.tenSP
+                                </a>
+                            </div>
+                            <div class="body__productlist-item span-price">
+                                <span class="span-price">@String.Format("{0:n0}", item.DonGia)₫</span>
+                            </div>
+                            <div class="body__productlist-item">
+                                <button class="button__quantity" onclick="decrease_quantity(@item.STT,@item.DonGia)">-</button>
+                                <input class="body__productlist-item quantity" id="input_@item.STT" type="number" min="0" max="99" value=" @item.SoLuong" oninput="check_input(@item.STT,@item.DonGia);">
+                                <input type="hidden" id="temp_@item.STT" value=" @item.SoLuong"/>
+                                <button class="button__quantity" onclick="increase_quantity(@item.STT,@item.DonGia)">+</button>
+                            </div>
+                            <div class="body__productlist-item">
+                                <span class="span-price" id="tongtien_@item.STT"> @String.Format("{0:n0}", tien)₫</span>
+                            </div>
+                            <div class="body__productlist-item">
+                                <a style="color:black" href="@Url.Action("XoaKhoiGio",new {@sdt=item.SDT, @MaSP=item.MaSP })">
+                                    <i class="icon_size fas fa-trash-alt "></i>
+                                </a>
+
+                            </div>
+                        </div>
+                        total = total + (decimal)item.ThanhTien;
+                    }
+
+
+
+                </div>
+                <div class="body__footer ">
+                    <div class="body__footer__row1 ">
+                        VND <p id="tienhang"> @total.ToString("N0")</p> Tổng tiền hàng :&nbsp;
+                        <input type="hidden" id="TempTotal" value="@total"/>
+                    </div>
+                    <div class="body__footer__row2 ">
+                        <a href="@Url.Action("QuayVe")" class="body__footer__row2-check one">Tiếp tục mua hàng</a>
+                        <a href="@Url.Action("Index","ThanhToan" ,new { sdt= Session["Phone"].ToString()})" class="body__footer__row2-check two ">Mua hàng</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+    <!--footer-->
+    <footer class="footer" style=" margin-top: auto;">
+        <div class="gird">
+            <div class="gird_row gird_row2">
+                <div style="margin-left:4%;" class="gird_column2-4">
+                    <h3 class="footer_heading"> CSKH</h3>
+                    <ul class="footer_heading-list">
+                        <li class="footer-item">
+                            <a href="" class="footer-link">Trung tâm giới thiệu</a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="" class="footer-link">ClockID Mall</a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="" class="footer-link">Hướng dẫn mua hàng</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="gird_column2-4">
+                    <h3 class="footer_heading">Thắc mắc</h3>
+                    <ul class="footer_heading-list">
+                        <li class="footer-item">
+                            <a href="" class="footer-link">Liên hệ với FB</a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="" class="footer-link">Liên hệ với Instagram</a>
+
+                        </li>
+                    </ul>
+                </div>
+                <div class="gird_column2-4">
+                    <h3 class="footer_heading">Theo dõi tôi trên</h3>
+                    <ul class="footer_heading-list">
+                        <li class="footer-item">
+                            <a href="" class="footer-link">
+                                <i class="fab fa-facebook"></i> Facebook
+                            </a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="" class="footer-link">
+                                <i class="fab fa-instagram"></i> Instagram
+                            </a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="" class="footer-link">
+                                <i class="fab fa-twitter-square"></i>Twitter
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="gird_column2-4">
+                    <h3 class="footer_heading">Hổ trợ khách hàng</h3>
+                    <ul class="footer_heading-list">
+                        <li class="footer-item">
+                            <a href="" class="footer-link">Dịch vụ</a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="" class="footer-link">Thái độ</a>
+
+                        </li>
+                    </ul>
+                </div>
+                <div class="gird_column2-4 special">
+                    <h3 class="footer_heading">Truy cập ứng dụng</h3>
+                    <ul class="footer_heading-list">
+                        <li class="footer-item">
+                            <a href="" class="footer-link">Trung tâm giới thiệu</a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="" class="footer-link">ClockID Mall</a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="" class="footer-link">Hướng dẫn mua hàng</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        function increase_quantity(STT,DonGia) {
+            check_quantity(STT, DonGia);
+        }
+
+        function numberWithCommas(x) {
+            x = x.toString();
+            var pattern = /(-?\d+)(\d{3})/;
+            while (pattern.test(x))
+                x = x.replace(pattern, "$1,$2");
+            return x;
+        }
+
+        function decrease_quantity(STT,DonGia) {
+            var inputQuantity = $("#input_" + STT).val();
+            var value = parseInt(inputQuantity);
+            if (value > 1) {
+                value = value - 1;
+                $("#input_" + STT).val(value);
+                $("#tongtien_" + STT).text(numberWithCommas(DonGia * value) + ' ₫');
+                tienxuong(DonGia);
+
+                $("#temp_" + STT).val(value);
+                save_to_db(STT, value);
+            }
+
+        }
+
+        function tienlen(tienthem) {
+            //var tongtien = $("#tienhang").text();
+            //tongtien = parseInt(tongtien);
+            //tongtien = tongtien + tienthem;
+            //$("#tienhang").text(tongtien);
+            var tongtien = document.getElementById('TempTotal').value;
+            tongtien = parseInt(tongtien);
+            tongtien = tongtien + tienthem;
+            $("#tienhang").text(numberWithCommas(tongtien));
+            document.getElementById("TempTotal").value = tongtien;
+        }
+
+        function tienxuong(tienthem) {
+            //var tongtien = $("#tienhang").text();
+            //tongtien = parseInt(tongtien);
+            //tongtien = tongtien - tienthem;
+            //$("#tienhang").text(tongtien);
+            var tongtien = document.getElementById('TempTotal').value;
+            tongtien = parseInt(tongtien);
+            tongtien = tongtien - tienthem;
+            $("#tienhang").text(numberWithCommas(tongtien));
+            document.getElementById("TempTotal").value = tongtien;
+
+        }
+
+        function save_to_db(STT, soluong) {
+            $.ajax({
+                url: '@Url.Action("SuaSoLuong","Cart")',
+                data: { STT: STT, SoLuong: soluong },
+                type: "POST",
+            });
+        }
+
+        function check_quantity(STT,DonGia) {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("CheckQuantity", "Cart")',
+                data: { STT: STT },
+                success: function (data) {
+                    var inputQuantity = $("#input_" + STT).val();
+                    var value = parseInt(inputQuantity);
+                    if (value >= parseInt(data)) {
+                        alert("Vượt giới hạn");
+                    }
+                    else if (value < parseInt(data)) {
+                        value = value + 1;
+                        $("#input_" + STT).val(value);
+                        $("#tongtien_" + STT).text(numberWithCommas(DonGia * value) + ' ₫');
+                        tienlen(DonGia);
+
+                        $("#temp_" + STT).val(value);
+                        save_to_db(STT, value);
+                    }
+
+                },
+                error: function (err) {
+                    console.error(err);
+                }
+            });
+        }
+
+         function check_input(STT,DonGia) {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("CheckQuantity", "Cart")',
+                data: { STT: STT },
+                success: function (data) {
+                    var inputQuantity = $("#input_" + STT).val();
+                    var inputTemp = $("#temp_" + STT).val();
+                    var value = parseInt(inputQuantity);
+                    if (value.toString() == "NaN") {
+                        $("#input_" + STT).val("1");
+                        $("#tongtien_" + STT).text(numberWithCommas(DonGia * 1) + ' ₫');
+
+                        var inputchanged = 1 - inputTemp;
+                        var tongtien = document.getElementById('TempTotal').value;
+                        tongtien = parseInt(tongtien);
+                        tongtien = tongtien + (inputchanged * DonGia);
+                        $("#tienhang").text(numberWithCommas(tongtien));
+                        document.getElementById("TempTotal").value = tongtien;
+
+                        $("#temp_" + STT).val(1);
+                        save_to_db(STT, 1);
+                    }
+                    if (value > parseInt(data)) {
+                        alert("Vượt giới hạn");
+                        $("#input_" + STT).val(parseInt(inputTemp));
+                    }
+                    else if (value <= parseInt(data)) {
+                        $("#tongtien_" + STT).text(numberWithCommas(DonGia * value) + ' ₫');
+
+                        var inputchanged = inputQuantity - inputTemp;
+                        var tongtien = document.getElementById('TempTotal').value;
+                        tongtien = parseInt(tongtien);
+                        tongtien = tongtien + (inputchanged * DonGia);
+                        $("#tienhang").text(numberWithCommas(tongtien));
+                        document.getElementById("TempTotal").value = tongtien;
+
+                        $("#temp_" + STT).val(value);
+
+                        save_to_db(STT, value);
+                    }
+
+                },
+                error: function (err) {
+                    console.error(err);
+                }
+            });
+        }
+    </script>
+    <script>
+        var dt = new Date();
+        document.getElementById("datetime").innerHTML = (("0" + dt.getDate()).slice(-2)) + "." + (("0" + (dt.getMonth() + 1)).slice(-2)) + "." + (dt.getFullYear()) + " " + (("0" + dt.getHours()).slice(-2)) + ":" + (("0" + dt.getMinutes()).slice(-2));
+    </script>
+</body>
+
+</html>
+

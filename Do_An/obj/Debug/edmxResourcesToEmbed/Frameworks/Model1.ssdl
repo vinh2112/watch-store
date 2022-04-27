@@ -1,0 +1,503 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TMDTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'TMDT.dbo.ADMINISTRATOR' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="ADMINISTRATOR">
+          <Property Name="Username" Type="varchar" MaxLength="50" />
+          <Property Name="Pwd" Type="varchar" MaxLength="50" />
+        </EntityType>-->
+  <EntityType Name="BRAND">
+    <Key>
+      <PropertyRef Name="MaTH" />
+    </Key>
+    <Property Name="MaTH" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TenTH" Type="nvarchar" MaxLength="100" />
+    <Property Name="DiaChiTH" Type="nvarchar" MaxLength="200" />
+    <Property Name="SDT" Type="nvarchar" MaxLength="20" />
+    <Property Name="HinhAnh" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="DANHMUC">
+    <Key>
+      <PropertyRef Name="MaDM" />
+    </Key>
+    <Property Name="MaDM" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TenDM" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="DH_SP">
+    <Key>
+      <PropertyRef Name="STT" />
+    </Key>
+    <Property Name="STT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaDH" Type="nvarchar" MaxLength="50" />
+    <Property Name="MaSP" Type="nvarchar" MaxLength="50" />
+    <Property Name="SoLuong" Type="int" />
+  </EntityType>
+  <EntityType Name="DONHANG">
+    <Key>
+      <PropertyRef Name="MaDH" />
+    </Key>
+    <Property Name="MaDH" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SDT" Type="nvarchar" MaxLength="10" />
+    <Property Name="DiaChi" Type="nvarchar" MaxLength="200" />
+    <Property Name="NgayThang" Type="date" />
+    <Property Name="TinhTrang" Type="nvarchar" MaxLength="50" />
+    <Property Name="ChuThich" Type="nvarchar" MaxLength="200" />
+    <Property Name="TongTien" Type="int" />
+  </EntityType>
+  <EntityType Name="GIOHANG">
+    <Key>
+      <PropertyRef Name="STT" />
+    </Key>
+    <Property Name="STT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SDT" Type="nvarchar" MaxLength="10" />
+    <Property Name="MaSP" Type="nvarchar" MaxLength="50" />
+    <Property Name="SoLuong" Type="int" />
+  </EntityType>
+  <EntityType Name="INFORMATION">
+    <Key>
+      <PropertyRef Name="SDT" />
+    </Key>
+    <Property Name="SDT" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="TenKH" Type="nvarchar" MaxLength="100" />
+    <Property Name="DiaChi" Type="nvarchar" MaxLength="200" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="SANPHAM">
+    <Key>
+      <PropertyRef Name="MaSP" />
+    </Key>
+    <Property Name="MaSP" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TenSP" Type="nvarchar" MaxLength="200" />
+    <Property Name="MauSac" Type="nvarchar" MaxLength="50" />
+    <Property Name="KichThuoc" Type="nvarchar" MaxLength="50" />
+    <Property Name="Gia" Type="int" />
+    <Property Name="MaTH" Type="nvarchar" MaxLength="50" />
+    <Property Name="NoiSX" Type="nvarchar" MaxLength="100" />
+    <Property Name="HinhAnh" Type="nvarchar" MaxLength="200" />
+    <Property Name="SoLuong" Type="int" />
+    <Property Name="MaDM" Type="nvarchar" MaxLength="50" />
+    <Property Name="TinhTrang" Type="nvarchar" MaxLength="50" />
+    <Property Name="Discount" Type="int" />
+  </EntityType>
+  <EntityType Name="USERS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserN" Type="nvarchar" MaxLength="10" />
+    <Property Name="PassW" Type="nvarchar" MaxLength="50" />
+    <Property Name="Roles" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TMDT.dbo.ViewBRAND' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewBRAND">
+    <Key>
+      <PropertyRef Name="MaTH" />
+    </Key>
+    <Property Name="MaTH" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TenTH" Type="nvarchar" MaxLength="100" />
+    <Property Name="DiaChiTH" Type="nvarchar" MaxLength="200" />
+    <Property Name="SDT" Type="nvarchar" MaxLength="20" />
+    <Property Name="HinhAnh" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TMDT.dbo.ViewDANHMUC' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewDANHMUC">
+    <Key>
+      <PropertyRef Name="MaDM" />
+    </Key>
+    <Property Name="MaDM" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TenDM" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TMDT.dbo.ViewDONHANG' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewDONHANG">
+    <Key>
+      <PropertyRef Name="MaDH" />
+    </Key>
+    <Property Name="MaDH" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SDT" Type="nvarchar" MaxLength="10" />
+    <Property Name="DiaChi" Type="nvarchar" MaxLength="200" />
+    <Property Name="NgayThang" Type="date" />
+    <Property Name="TinhTrang" Type="nvarchar" MaxLength="50" />
+    <Property Name="ChuThich" Type="nvarchar" MaxLength="200" />
+    <Property Name="TongTien" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TMDT.dbo.ViewSANPHAM' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewSANPHAM">
+    <Key>
+      <PropertyRef Name="MaSP" />
+    </Key>
+    <Property Name="MaSP" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TenSP" Type="nvarchar" MaxLength="200" />
+    <Property Name="MauSac" Type="nvarchar" MaxLength="50" />
+    <Property Name="KichThuoc" Type="nvarchar" MaxLength="50" />
+    <Property Name="Gia" Type="int" />
+    <Property Name="MaTH" Type="nvarchar" MaxLength="50" />
+    <Property Name="NoiSX" Type="nvarchar" MaxLength="100" />
+    <Property Name="HinhAnh" Type="nvarchar" MaxLength="200" />
+    <Property Name="SoLuong" Type="int" />
+    <Property Name="MaDM" Type="nvarchar" MaxLength="50" />
+    <Property Name="TinhTrang" Type="nvarchar" MaxLength="50" />
+    <Property Name="Discount" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TMDT.dbo.ViewUSERS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewUSERS">
+    <Key>
+      <PropertyRef Name="SDT" />
+    </Key>
+    <Property Name="UserN" Type="nvarchar" MaxLength="10" />
+    <Property Name="Roles" Type="int" />
+    <Property Name="SDT" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="TenKH" Type="nvarchar" MaxLength="100" />
+    <Property Name="DiaChi" Type="nvarchar" MaxLength="200" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <Association Name="DH_SP_MaDH_DONHANG">
+    <End Role="DONHANG" Type="Self.DONHANG" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="DH_SP" Type="Self.DH_SP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DONHANG">
+        <PropertyRef Name="MaDH" />
+      </Principal>
+      <Dependent Role="DH_SP">
+        <PropertyRef Name="MaDH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DH_SP_MaSP_SANPHAM">
+    <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="0..1" />
+    <End Role="DH_SP" Type="Self.DH_SP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SANPHAM">
+        <PropertyRef Name="MaSP" />
+      </Principal>
+      <Dependent Role="DH_SP">
+        <PropertyRef Name="MaSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DONHANG_SDT_INFORMATION">
+    <End Role="INFORMATION" Type="Self.INFORMATION" Multiplicity="0..1" />
+    <End Role="DONHANG" Type="Self.DONHANG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="INFORMATION">
+        <PropertyRef Name="SDT" />
+      </Principal>
+      <Dependent Role="DONHANG">
+        <PropertyRef Name="SDT" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="GIOHANG_MASP_SANPHAM">
+    <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="0..1" />
+    <End Role="GIOHANG" Type="Self.GIOHANG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SANPHAM">
+        <PropertyRef Name="MaSP" />
+      </Principal>
+      <Dependent Role="GIOHANG">
+        <PropertyRef Name="MaSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="GIOHANG_SDT_INFORMATION">
+    <End Role="INFORMATION" Type="Self.INFORMATION" Multiplicity="0..1" />
+    <End Role="GIOHANG" Type="Self.GIOHANG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="INFORMATION">
+        <PropertyRef Name="SDT" />
+      </Principal>
+      <Dependent Role="GIOHANG">
+        <PropertyRef Name="SDT" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SANPHAM_MaDM_DANHMUC">
+    <End Role="DANHMUC" Type="Self.DANHMUC" Multiplicity="0..1" />
+    <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DANHMUC">
+        <PropertyRef Name="MaDM" />
+      </Principal>
+      <Dependent Role="SANPHAM">
+        <PropertyRef Name="MaDM" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SANPHAM_MaTH_BRAND">
+    <End Role="BRAND" Type="Self.BRAND" Multiplicity="0..1" />
+    <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BRAND">
+        <PropertyRef Name="MaTH" />
+      </Principal>
+      <Dependent Role="SANPHAM">
+        <PropertyRef Name="MaTH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SDT">
+    <End Role="INFORMATION" Type="Self.INFORMATION" Multiplicity="0..1" />
+    <End Role="USERS" Type="Self.USERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="INFORMATION">
+        <PropertyRef Name="SDT" />
+      </Principal>
+      <Dependent Role="USERS">
+        <PropertyRef Name="UserN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="Admin_DANGNHAP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="USERNAME" Type="nvarchar" Mode="In" />
+    <Parameter Name="PASSWORD" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="AnSANPHAM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MaSP" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="changeDONHANG" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MaDH" Type="nvarchar" Mode="In" />
+    <Parameter Name="DiaChi" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="Check_SDT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="SDT" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="chiTietDonHang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MaDH" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="DANGKY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="SDT" Type="nvarchar" Mode="In" />
+    <Parameter Name="HoTenKH" Type="nvarchar" Mode="In" />
+    <Parameter Name="DiaChi" Type="nvarchar" Mode="In" />
+    <Parameter Name="Email" Type="nvarchar" Mode="In" />
+    <Parameter Name="Password" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="DANGNHAP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="USERNAME" Type="nvarchar" Mode="In" />
+    <Parameter Name="PASSWORD" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="DoanhThu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Thang" Type="int" Mode="In" />
+    <Parameter Name="Nam" Type="int" Mode="In" />
+  </Function>
+  <Function Name="DoiMK" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserN" Type="nvarchar" Mode="In" />
+    <Parameter Name="PassW" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="HienSANPHAM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MaSP" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="huyDONHANG" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MaDH" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="LayBRAND" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="LayDANHMUC" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="LayDONHANG" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MaDH" Type="nvarchar" Mode="In" />
+    <Parameter Name="SDT" Type="int" Mode="In" />
+    <Parameter Name="NgayThang" Type="datetime" Mode="In" />
+    <Parameter Name="TinhTrang" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="LaySANPHAM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="RECOMMAND" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MaTH" Type="nchar" Mode="In" />
+    <Parameter Name="masp" Type="nchar" Mode="In" />
+  </Function>
+  <Function Name="SoDonDaGiao" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="SuaBRAND" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MaTH" Type="nvarchar" Mode="In" />
+    <Parameter Name="TenTH" Type="nvarchar" Mode="In" />
+    <Parameter Name="DiaChi" Type="nvarchar" Mode="In" />
+    <Parameter Name="SDT" Type="nvarchar" Mode="In" />
+    <Parameter Name="HinhAnh" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="SuaDANHMUC" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MaDM" Type="nvarchar" Mode="In" />
+    <Parameter Name="TenDM" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="SuaDONHANG" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MaDH" Type="nvarchar" Mode="In" />
+    <Parameter Name="SDT" Type="int" Mode="In" />
+    <Parameter Name="DiaChi" Type="nvarchar" Mode="In" />
+    <Parameter Name="NgayThang" Type="datetime" Mode="In" />
+    <Parameter Name="TinhTrang" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="SuaINFORMATION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="SDT" Type="nvarchar" Mode="In" />
+    <Parameter Name="TenKH" Type="nvarchar" Mode="In" />
+    <Parameter Name="DiaChi" Type="nvarchar" Mode="In" />
+    <Parameter Name="Email" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="SuaSANPHAM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MaSP" Type="nvarchar" Mode="In" />
+    <Parameter Name="TenSP" Type="nvarchar" Mode="In" />
+    <Parameter Name="MauSac" Type="nvarchar" Mode="In" />
+    <Parameter Name="KichThuoc" Type="nvarchar" Mode="In" />
+    <Parameter Name="Gia" Type="int" Mode="In" />
+    <Parameter Name="HinhAnh" Type="nvarchar" Mode="In" />
+    <Parameter Name="SoLuong" Type="int" Mode="In" />
+    <Parameter Name="MaDM" Type="nvarchar" Mode="In" />
+    <Parameter Name="TinhTrang" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="ThemBRAND" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MaTH" Type="nvarchar" Mode="In" />
+    <Parameter Name="TenTH" Type="nvarchar" Mode="In" />
+    <Parameter Name="DiaChi" Type="nvarchar" Mode="In" />
+    <Parameter Name="SDT" Type="int" Mode="In" />
+    <Parameter Name="HinhAnh" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="ThemDANHMUC" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MaDM" Type="nvarchar" Mode="In" />
+    <Parameter Name="TenDM" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="ThemDONHANG" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MaDH" Type="nvarchar" Mode="In" />
+    <Parameter Name="SDT" Type="int" Mode="In" />
+    <Parameter Name="DiaChi" Type="nvarchar" Mode="In" />
+    <Parameter Name="TinhTrang" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="ThemSANPHAM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MaSP" Type="nvarchar" Mode="In" />
+    <Parameter Name="TenSP" Type="nvarchar" Mode="In" />
+    <Parameter Name="MauSac" Type="nvarchar" Mode="In" />
+    <Parameter Name="KichThuoc" Type="nvarchar" Mode="In" />
+    <Parameter Name="Gia" Type="int" Mode="In" />
+    <Parameter Name="MaTH" Type="nvarchar" Mode="In" />
+    <Parameter Name="NoiSX" Type="nvarchar" Mode="In" />
+    <Parameter Name="HinhAnh" Type="nvarchar" Mode="In" />
+    <Parameter Name="SoLuong" Type="int" Mode="In" />
+    <Parameter Name="MaDM" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="ThemUSERS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserN" Type="nvarchar" Mode="In" />
+    <Parameter Name="PassW" Type="nvarchar" Mode="In" />
+    <Parameter Name="Roles" Type="int" Mode="In" />
+  </Function>
+  <Function Name="themvaogiohang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="masp" Type="nchar" Mode="In" />
+    <Parameter Name="sdt" Type="nchar" Mode="In" />
+    <Parameter Name="soluong" Type="int" Mode="In" />
+  </Function>
+  <Function Name="verifyDONHANG" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MaDH" Type="nvarchar" Mode="In" />
+    <Parameter Name="TongTien" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ViewGIOHANG" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ViewOneUSERS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="SDT" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="XemGioHang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="SDT" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="XoaBRAND" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MaTH" Type="nvarchar" Mode="In" />
+    <Parameter Name="TenTH" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="XoaDANHMUC" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MaDM" Type="nvarchar" Mode="In" />
+    <Parameter Name="TenDM" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="XoaGIOHANG" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MaSP" Type="nvarchar" Mode="In" />
+    <Parameter Name="TenSP" Type="nvarchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="TMDTModelStoreContainer">
+    <EntitySet Name="BRAND" EntityType="Self.BRAND" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DANHMUC" EntityType="Self.DANHMUC" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DH_SP" EntityType="Self.DH_SP" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DONHANG" EntityType="Self.DONHANG" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GIOHANG" EntityType="Self.GIOHANG" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="INFORMATION" EntityType="Self.INFORMATION" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SANPHAM" EntityType="Self.SANPHAM" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="USERS" EntityType="Self.USERS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ViewBRAND" EntityType="Self.ViewBRAND" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewBRAND].[MaTH] AS [MaTH], 
+    [ViewBRAND].[TenTH] AS [TenTH], 
+    [ViewBRAND].[DiaChiTH] AS [DiaChiTH], 
+    [ViewBRAND].[SDT] AS [SDT], 
+    [ViewBRAND].[HinhAnh] AS [HinhAnh]
+    FROM [dbo].[ViewBRAND] AS [ViewBRAND]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewDANHMUC" EntityType="Self.ViewDANHMUC" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewDANHMUC].[MaDM] AS [MaDM], 
+    [ViewDANHMUC].[TenDM] AS [TenDM]
+    FROM [dbo].[ViewDANHMUC] AS [ViewDANHMUC]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewDONHANG" EntityType="Self.ViewDONHANG" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewDONHANG].[MaDH] AS [MaDH], 
+    [ViewDONHANG].[SDT] AS [SDT], 
+    [ViewDONHANG].[DiaChi] AS [DiaChi], 
+    [ViewDONHANG].[NgayThang] AS [NgayThang], 
+    [ViewDONHANG].[TinhTrang] AS [TinhTrang], 
+    [ViewDONHANG].[ChuThich] AS [ChuThich], 
+    [ViewDONHANG].[TongTien] AS [TongTien]
+    FROM [dbo].[ViewDONHANG] AS [ViewDONHANG]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewSANPHAM" EntityType="Self.ViewSANPHAM" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewSANPHAM].[MaSP] AS [MaSP], 
+    [ViewSANPHAM].[TenSP] AS [TenSP], 
+    [ViewSANPHAM].[MauSac] AS [MauSac], 
+    [ViewSANPHAM].[KichThuoc] AS [KichThuoc], 
+    [ViewSANPHAM].[Gia] AS [Gia], 
+    [ViewSANPHAM].[MaTH] AS [MaTH], 
+    [ViewSANPHAM].[NoiSX] AS [NoiSX], 
+    [ViewSANPHAM].[HinhAnh] AS [HinhAnh], 
+    [ViewSANPHAM].[SoLuong] AS [SoLuong], 
+    [ViewSANPHAM].[MaDM] AS [MaDM], 
+    [ViewSANPHAM].[TinhTrang] AS [TinhTrang], 
+    [ViewSANPHAM].[Discount] AS [Discount]
+    FROM [dbo].[ViewSANPHAM] AS [ViewSANPHAM]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewUSERS" EntityType="Self.ViewUSERS" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewUSERS].[UserN] AS [UserN], 
+    [ViewUSERS].[Roles] AS [Roles], 
+    [ViewUSERS].[SDT] AS [SDT], 
+    [ViewUSERS].[TenKH] AS [TenKH], 
+    [ViewUSERS].[DiaChi] AS [DiaChi], 
+    [ViewUSERS].[Email] AS [Email]
+    FROM [dbo].[ViewUSERS] AS [ViewUSERS]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="DH_SP_MaDH_DONHANG" Association="Self.DH_SP_MaDH_DONHANG">
+      <End Role="DONHANG" EntitySet="DONHANG" />
+      <End Role="DH_SP" EntitySet="DH_SP" />
+    </AssociationSet>
+    <AssociationSet Name="DH_SP_MaSP_SANPHAM" Association="Self.DH_SP_MaSP_SANPHAM">
+      <End Role="SANPHAM" EntitySet="SANPHAM" />
+      <End Role="DH_SP" EntitySet="DH_SP" />
+    </AssociationSet>
+    <AssociationSet Name="DONHANG_SDT_INFORMATION" Association="Self.DONHANG_SDT_INFORMATION">
+      <End Role="INFORMATION" EntitySet="INFORMATION" />
+      <End Role="DONHANG" EntitySet="DONHANG" />
+    </AssociationSet>
+    <AssociationSet Name="GIOHANG_MASP_SANPHAM" Association="Self.GIOHANG_MASP_SANPHAM">
+      <End Role="SANPHAM" EntitySet="SANPHAM" />
+      <End Role="GIOHANG" EntitySet="GIOHANG" />
+    </AssociationSet>
+    <AssociationSet Name="GIOHANG_SDT_INFORMATION" Association="Self.GIOHANG_SDT_INFORMATION">
+      <End Role="INFORMATION" EntitySet="INFORMATION" />
+      <End Role="GIOHANG" EntitySet="GIOHANG" />
+    </AssociationSet>
+    <AssociationSet Name="SANPHAM_MaDM_DANHMUC" Association="Self.SANPHAM_MaDM_DANHMUC">
+      <End Role="DANHMUC" EntitySet="DANHMUC" />
+      <End Role="SANPHAM" EntitySet="SANPHAM" />
+    </AssociationSet>
+    <AssociationSet Name="SANPHAM_MaTH_BRAND" Association="Self.SANPHAM_MaTH_BRAND">
+      <End Role="BRAND" EntitySet="BRAND" />
+      <End Role="SANPHAM" EntitySet="SANPHAM" />
+    </AssociationSet>
+    <AssociationSet Name="SDT" Association="Self.SDT">
+      <End Role="INFORMATION" EntitySet="INFORMATION" />
+      <End Role="USERS" EntitySet="USERS" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,541 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TMDTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="BRAND">
+    <Key>
+      <PropertyRef Name="MaTH" />
+    </Key>
+    <Property Name="MaTH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TenTH" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DiaChiTH" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="SDT" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="HinhAnh" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SANPHAMs" Relationship="Self.SANPHAM_MaTH_BRAND" FromRole="BRAND" ToRole="SANPHAM" />
+  </EntityType>
+  <EntityType Name="DANHMUC">
+    <Key>
+      <PropertyRef Name="MaDM" />
+    </Key>
+    <Property Name="MaDM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TenDM" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SANPHAMs" Relationship="Self.SANPHAM_MaDM_DANHMUC" FromRole="DANHMUC" ToRole="SANPHAM" />
+  </EntityType>
+  <EntityType Name="DH_SP">
+    <Key>
+      <PropertyRef Name="STT" />
+    </Key>
+    <Property Name="STT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MaDH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MaSP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SoLuong" Type="Int32" />
+    <NavigationProperty Name="DONHANG" Relationship="Self.DH_SP_MaDH_DONHANG" FromRole="DH_SP" ToRole="DONHANG" />
+    <NavigationProperty Name="SANPHAM" Relationship="Self.DH_SP_MaSP_SANPHAM" FromRole="DH_SP" ToRole="SANPHAM" />
+  </EntityType>
+  <EntityType Name="DONHANG">
+    <Key>
+      <PropertyRef Name="MaDH" />
+    </Key>
+    <Property Name="MaDH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SDT" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="DiaChi" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="NgayThang" Type="DateTime" Precision="0" />
+    <Property Name="TinhTrang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ChuThich" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="TongTien" Type="Int32" />
+    <NavigationProperty Name="DH_SP" Relationship="Self.DH_SP_MaDH_DONHANG" FromRole="DONHANG" ToRole="DH_SP" />
+    <NavigationProperty Name="INFORMATION" Relationship="Self.DONHANG_SDT_INFORMATION" FromRole="DONHANG" ToRole="INFORMATION" />
+  </EntityType>
+  <EntityType Name="GIOHANG">
+    <Key>
+      <PropertyRef Name="STT" />
+    </Key>
+    <Property Name="STT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SDT" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="MaSP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SoLuong" Type="Int32" />
+    <NavigationProperty Name="SANPHAM" Relationship="Self.GIOHANG_MASP_SANPHAM" FromRole="GIOHANG" ToRole="SANPHAM" />
+    <NavigationProperty Name="INFORMATION" Relationship="Self.GIOHANG_SDT_INFORMATION" FromRole="GIOHANG" ToRole="INFORMATION" />
+  </EntityType>
+  <EntityType Name="INFORMATION">
+    <Key>
+      <PropertyRef Name="SDT" />
+    </Key>
+    <Property Name="SDT" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TenKH" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DiaChi" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="DONHANGs" Relationship="Self.DONHANG_SDT_INFORMATION" FromRole="INFORMATION" ToRole="DONHANG" />
+    <NavigationProperty Name="GIOHANGs" Relationship="Self.GIOHANG_SDT_INFORMATION" FromRole="INFORMATION" ToRole="GIOHANG" />
+    <NavigationProperty Name="USERS" Relationship="Self.SDT" FromRole="INFORMATION" ToRole="USERS" />
+  </EntityType>
+  <EntityType Name="SANPHAM">
+    <Key>
+      <PropertyRef Name="MaSP" />
+    </Key>
+    <Property Name="MaSP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TenSP" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="MauSac" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="KichThuoc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Gia" Type="Int32" />
+    <Property Name="MaTH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NoiSX" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="HinhAnh" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="SoLuong" Type="Int32" />
+    <Property Name="MaDM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TinhTrang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Discount" Type="Int32" />
+    <NavigationProperty Name="BRAND" Relationship="Self.SANPHAM_MaTH_BRAND" FromRole="SANPHAM" ToRole="BRAND" />
+    <NavigationProperty Name="DANHMUC" Relationship="Self.SANPHAM_MaDM_DANHMUC" FromRole="SANPHAM" ToRole="DANHMUC" />
+    <NavigationProperty Name="DH_SP" Relationship="Self.DH_SP_MaSP_SANPHAM" FromRole="SANPHAM" ToRole="DH_SP" />
+    <NavigationProperty Name="GIOHANGs" Relationship="Self.GIOHANG_MASP_SANPHAM" FromRole="SANPHAM" ToRole="GIOHANG" />
+  </EntityType>
+  <EntityType Name="USER">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserN" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="PassW" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Roles" Type="Int32" />
+    <NavigationProperty Name="INFORMATION" Relationship="Self.SDT" FromRole="USERS" ToRole="INFORMATION" />
+  </EntityType>
+  <EntityType Name="ViewBRAND">
+    <Key>
+      <PropertyRef Name="MaTH" />
+    </Key>
+    <Property Name="MaTH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TenTH" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DiaChiTH" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="SDT" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="HinhAnh" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ViewDANHMUC">
+    <Key>
+      <PropertyRef Name="MaDM" />
+    </Key>
+    <Property Name="MaDM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TenDM" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ViewDONHANG">
+    <Key>
+      <PropertyRef Name="MaDH" />
+    </Key>
+    <Property Name="MaDH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SDT" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="DiaChi" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="NgayThang" Type="DateTime" Precision="0" />
+    <Property Name="TinhTrang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ChuThich" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="TongTien" Type="Int32" />
+  </EntityType>
+  <EntityType Name="ViewSANPHAM">
+    <Key>
+      <PropertyRef Name="MaSP" />
+    </Key>
+    <Property Name="MaSP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TenSP" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="MauSac" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="KichThuoc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Gia" Type="Int32" />
+    <Property Name="MaTH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NoiSX" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="HinhAnh" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="SoLuong" Type="Int32" />
+    <Property Name="MaDM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TinhTrang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Discount" Type="Int32" />
+  </EntityType>
+  <EntityType Name="ViewUSER">
+    <Key>
+      <PropertyRef Name="SDT" />
+    </Key>
+    <Property Name="UserN" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Roles" Type="Int32" />
+    <Property Name="SDT" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TenKH" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DiaChi" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="SANPHAM_MaTH_BRAND">
+    <End Role="BRAND" Type="Self.BRAND" Multiplicity="0..1" />
+    <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BRAND">
+        <PropertyRef Name="MaTH" />
+      </Principal>
+      <Dependent Role="SANPHAM">
+        <PropertyRef Name="MaTH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SANPHAM_MaDM_DANHMUC">
+    <End Role="DANHMUC" Type="Self.DANHMUC" Multiplicity="0..1" />
+    <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DANHMUC">
+        <PropertyRef Name="MaDM" />
+      </Principal>
+      <Dependent Role="SANPHAM">
+        <PropertyRef Name="MaDM" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DH_SP_MaDH_DONHANG">
+    <End Role="DONHANG" Type="Self.DONHANG" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="DH_SP" Type="Self.DH_SP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DONHANG">
+        <PropertyRef Name="MaDH" />
+      </Principal>
+      <Dependent Role="DH_SP">
+        <PropertyRef Name="MaDH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DH_SP_MaSP_SANPHAM">
+    <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="0..1" />
+    <End Role="DH_SP" Type="Self.DH_SP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SANPHAM">
+        <PropertyRef Name="MaSP" />
+      </Principal>
+      <Dependent Role="DH_SP">
+        <PropertyRef Name="MaSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DONHANG_SDT_INFORMATION">
+    <End Role="INFORMATION" Type="Self.INFORMATION" Multiplicity="0..1" />
+    <End Role="DONHANG" Type="Self.DONHANG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="INFORMATION">
+        <PropertyRef Name="SDT" />
+      </Principal>
+      <Dependent Role="DONHANG">
+        <PropertyRef Name="SDT" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="GIOHANG_MASP_SANPHAM">
+    <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="0..1" />
+    <End Role="GIOHANG" Type="Self.GIOHANG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SANPHAM">
+        <PropertyRef Name="MaSP" />
+      </Principal>
+      <Dependent Role="GIOHANG">
+        <PropertyRef Name="MaSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="GIOHANG_SDT_INFORMATION">
+    <End Role="INFORMATION" Type="Self.INFORMATION" Multiplicity="0..1" />
+    <End Role="GIOHANG" Type="Self.GIOHANG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="INFORMATION">
+        <PropertyRef Name="SDT" />
+      </Principal>
+      <Dependent Role="GIOHANG">
+        <PropertyRef Name="SDT" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SDT">
+    <End Role="INFORMATION" Type="Self.INFORMATION" Multiplicity="0..1" />
+    <End Role="USERS" Type="Self.USER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="INFORMATION">
+        <PropertyRef Name="SDT" />
+      </Principal>
+      <Dependent Role="USERS">
+        <PropertyRef Name="UserN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MainDbContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BRANDs" EntityType="Self.BRAND" />
+    <EntitySet Name="DANHMUCs" EntityType="Self.DANHMUC" />
+    <EntitySet Name="DH_SP" EntityType="Self.DH_SP" />
+    <EntitySet Name="DONHANGs" EntityType="Self.DONHANG" />
+    <EntitySet Name="GIOHANGs" EntityType="Self.GIOHANG" />
+    <EntitySet Name="INFORMATION" EntityType="Self.INFORMATION" />
+    <EntitySet Name="SANPHAMs" EntityType="Self.SANPHAM" />
+    <EntitySet Name="USERS" EntityType="Self.USER" />
+    <EntitySet Name="ViewBRANDs" EntityType="Self.ViewBRAND" />
+    <EntitySet Name="ViewDANHMUCs" EntityType="Self.ViewDANHMUC" />
+    <EntitySet Name="ViewDONHANGs" EntityType="Self.ViewDONHANG" />
+    <EntitySet Name="ViewSANPHAMs" EntityType="Self.ViewSANPHAM" />
+    <EntitySet Name="ViewUSERS" EntityType="Self.ViewUSER" />
+    <AssociationSet Name="SANPHAM_MaTH_BRAND" Association="Self.SANPHAM_MaTH_BRAND">
+      <End Role="BRAND" EntitySet="BRANDs" />
+      <End Role="SANPHAM" EntitySet="SANPHAMs" />
+    </AssociationSet>
+    <AssociationSet Name="SANPHAM_MaDM_DANHMUC" Association="Self.SANPHAM_MaDM_DANHMUC">
+      <End Role="DANHMUC" EntitySet="DANHMUCs" />
+      <End Role="SANPHAM" EntitySet="SANPHAMs" />
+    </AssociationSet>
+    <AssociationSet Name="DH_SP_MaDH_DONHANG" Association="Self.DH_SP_MaDH_DONHANG">
+      <End Role="DONHANG" EntitySet="DONHANGs" />
+      <End Role="DH_SP" EntitySet="DH_SP" />
+    </AssociationSet>
+    <AssociationSet Name="DH_SP_MaSP_SANPHAM" Association="Self.DH_SP_MaSP_SANPHAM">
+      <End Role="SANPHAM" EntitySet="SANPHAMs" />
+      <End Role="DH_SP" EntitySet="DH_SP" />
+    </AssociationSet>
+    <AssociationSet Name="DONHANG_SDT_INFORMATION" Association="Self.DONHANG_SDT_INFORMATION">
+      <End Role="INFORMATION" EntitySet="INFORMATION" />
+      <End Role="DONHANG" EntitySet="DONHANGs" />
+    </AssociationSet>
+    <AssociationSet Name="GIOHANG_MASP_SANPHAM" Association="Self.GIOHANG_MASP_SANPHAM">
+      <End Role="SANPHAM" EntitySet="SANPHAMs" />
+      <End Role="GIOHANG" EntitySet="GIOHANGs" />
+    </AssociationSet>
+    <AssociationSet Name="GIOHANG_SDT_INFORMATION" Association="Self.GIOHANG_SDT_INFORMATION">
+      <End Role="INFORMATION" EntitySet="INFORMATION" />
+      <End Role="GIOHANG" EntitySet="GIOHANGs" />
+    </AssociationSet>
+    <AssociationSet Name="SDT" Association="Self.SDT">
+      <End Role="INFORMATION" EntitySet="INFORMATION" />
+      <End Role="USERS" EntitySet="USERS" />
+    </AssociationSet>
+    <FunctionImport Name="Admin_DANGNHAP" ReturnType="Collection(Boolean)">
+      <Parameter Name="USERNAME" Mode="In" Type="String" />
+      <Parameter Name="PASSWORD" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AnSANPHAM">
+      <Parameter Name="MaSP" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="changeDONHANG">
+      <Parameter Name="MaDH" Mode="In" Type="String" />
+      <Parameter Name="DiaChi" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Check_SDT" ReturnType="Collection(Boolean)">
+      <Parameter Name="SDT" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="chiTietDonHang" ReturnType="Collection(TMDTModel.chiTietDonHang_Result)">
+      <Parameter Name="MaDH" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="DANGKY">
+      <Parameter Name="SDT" Mode="In" Type="String" />
+      <Parameter Name="HoTenKH" Mode="In" Type="String" />
+      <Parameter Name="DiaChi" Mode="In" Type="String" />
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="DANGNHAP" ReturnType="Collection(Boolean)">
+      <Parameter Name="USERNAME" Mode="In" Type="String" />
+      <Parameter Name="PASSWORD" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="DoanhThu" ReturnType="Collection(Int32)">
+      <Parameter Name="Thang" Mode="In" Type="Int32" />
+      <Parameter Name="Nam" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DoiMK">
+      <Parameter Name="UserN" Mode="In" Type="String" />
+      <Parameter Name="PassW" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="HienSANPHAM">
+      <Parameter Name="MaSP" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="huyDONHANG">
+      <Parameter Name="MaDH" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="LayBRAND" ReturnType="Collection(TMDTModel.LayBRAND_Result)" />
+    <FunctionImport Name="LayDANHMUC" ReturnType="Collection(TMDTModel.LayDANHMUC_Result)" />
+    <FunctionImport Name="LayDONHANG" ReturnType="Collection(TMDTModel.LayDONHANG_Result)">
+      <Parameter Name="MaDH" Mode="In" Type="String" />
+      <Parameter Name="SDT" Mode="In" Type="Int32" />
+      <Parameter Name="NgayThang" Mode="In" Type="DateTime" />
+      <Parameter Name="TinhTrang" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="LaySANPHAM" ReturnType="Collection(TMDTModel.LaySANPHAM_Result)" />
+    <FunctionImport Name="RECOMMAND" ReturnType="Collection(TMDTModel.RECOMMAND_Result)">
+      <Parameter Name="MaTH" Mode="In" Type="String" />
+      <Parameter Name="masp" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SuaBRAND">
+      <Parameter Name="MaTH" Mode="In" Type="String" />
+      <Parameter Name="TenTH" Mode="In" Type="String" />
+      <Parameter Name="DiaChi" Mode="In" Type="String" />
+      <Parameter Name="SDT" Mode="In" Type="String" />
+      <Parameter Name="HinhAnh" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SuaDANHMUC">
+      <Parameter Name="MaDM" Mode="In" Type="String" />
+      <Parameter Name="TenDM" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SuaDONHANG">
+      <Parameter Name="MaDH" Mode="In" Type="String" />
+      <Parameter Name="SDT" Mode="In" Type="Int32" />
+      <Parameter Name="DiaChi" Mode="In" Type="String" />
+      <Parameter Name="NgayThang" Mode="In" Type="DateTime" />
+      <Parameter Name="TinhTrang" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SuaINFORMATION">
+      <Parameter Name="SDT" Mode="In" Type="String" />
+      <Parameter Name="TenKH" Mode="In" Type="String" />
+      <Parameter Name="DiaChi" Mode="In" Type="String" />
+      <Parameter Name="Email" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SuaSANPHAM">
+      <Parameter Name="MaSP" Mode="In" Type="String" />
+      <Parameter Name="TenSP" Mode="In" Type="String" />
+      <Parameter Name="MauSac" Mode="In" Type="String" />
+      <Parameter Name="KichThuoc" Mode="In" Type="String" />
+      <Parameter Name="Gia" Mode="In" Type="Int32" />
+      <Parameter Name="HinhAnh" Mode="In" Type="String" />
+      <Parameter Name="SoLuong" Mode="In" Type="Int32" />
+      <Parameter Name="MaDM" Mode="In" Type="String" />
+      <Parameter Name="TinhTrang" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ThemBRAND">
+      <Parameter Name="MaTH" Mode="In" Type="String" />
+      <Parameter Name="TenTH" Mode="In" Type="String" />
+      <Parameter Name="DiaChi" Mode="In" Type="String" />
+      <Parameter Name="SDT" Mode="In" Type="Int32" />
+      <Parameter Name="HinhAnh" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ThemDANHMUC">
+      <Parameter Name="MaDM" Mode="In" Type="String" />
+      <Parameter Name="TenDM" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ThemDONHANG">
+      <Parameter Name="MaDH" Mode="In" Type="String" />
+      <Parameter Name="SDT" Mode="In" Type="Int32" />
+      <Parameter Name="DiaChi" Mode="In" Type="String" />
+      <Parameter Name="TinhTrang" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ThemSANPHAM">
+      <Parameter Name="MaSP" Mode="In" Type="String" />
+      <Parameter Name="TenSP" Mode="In" Type="String" />
+      <Parameter Name="MauSac" Mode="In" Type="String" />
+      <Parameter Name="KichThuoc" Mode="In" Type="String" />
+      <Parameter Name="Gia" Mode="In" Type="Int32" />
+      <Parameter Name="MaTH" Mode="In" Type="String" />
+      <Parameter Name="NoiSX" Mode="In" Type="String" />
+      <Parameter Name="HinhAnh" Mode="In" Type="String" />
+      <Parameter Name="SoLuong" Mode="In" Type="Int32" />
+      <Parameter Name="MaDM" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ThemUSERS">
+      <Parameter Name="UserN" Mode="In" Type="String" />
+      <Parameter Name="PassW" Mode="In" Type="String" />
+      <Parameter Name="Roles" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="themvaogiohang">
+      <Parameter Name="masp" Mode="In" Type="String" />
+      <Parameter Name="sdt" Mode="In" Type="String" />
+      <Parameter Name="soluong" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="verifyDONHANG">
+      <Parameter Name="MaDH" Mode="In" Type="String" />
+      <Parameter Name="TongTien" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ViewGIOHANG" ReturnType="Collection(TMDTModel.ViewGIOHANG_Result)" />
+    <FunctionImport Name="ViewOneUSERS" ReturnType="Collection(TMDTModel.ViewOneUSERS_Result)">
+      <Parameter Name="SDT" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="XemGioHang" ReturnType="Collection(TMDTModel.XemGioHang_Result)">
+      <Parameter Name="SDT" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="XoaBRAND">
+      <Parameter Name="MaTH" Mode="In" Type="String" />
+      <Parameter Name="TenTH" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="XoaDANHMUC">
+      <Parameter Name="MaDM" Mode="In" Type="String" />
+      <Parameter Name="TenDM" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="XoaGIOHANG">
+      <Parameter Name="MaSP" Mode="In" Type="String" />
+      <Parameter Name="TenSP" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="chiTietDonHang_Result">
+    <Property Type="String" Name="TenSP" Nullable="true" MaxLength="200" />
+    <Property Type="Int32" Name="SoLuong" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="LayBRAND_Result">
+    <Property Type="String" Name="MaTH" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="TenTH" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="DiaChiTH" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="SDT" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="HinhAnh" Nullable="true" MaxLength="200" />
+  </ComplexType>
+  <ComplexType Name="LayDANHMUC_Result">
+    <Property Type="String" Name="MaDM" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="TenDM" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="LayDONHANG_Result">
+    <Property Type="String" Name="MaDH" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="SDT" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="DiaChi" Nullable="true" MaxLength="200" />
+    <Property Type="DateTime" Name="NgayThang" Nullable="true" />
+    <Property Type="String" Name="TinhTrang" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ChuThich" Nullable="true" MaxLength="200" />
+    <Property Type="Int32" Name="TongTien" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="LaySANPHAM_Result">
+    <Property Type="String" Name="MaSP" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="TenSP" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="MauSac" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="KichThuoc" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="Gia" Nullable="true" />
+    <Property Type="String" Name="MaTH" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="NoiSX" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="HinhAnh" Nullable="true" MaxLength="200" />
+    <Property Type="Int32" Name="SoLuong" Nullable="true" />
+    <Property Type="String" Name="MaDM" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="TinhTrang" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="Discount" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="RECOMMAND_Result">
+    <Property Type="String" Name="MaSP" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="TenSP" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="MauSac" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="KichThuoc" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="Gia" Nullable="true" />
+    <Property Type="String" Name="MaTH" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="NoiSX" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="HinhAnh" Nullable="true" MaxLength="200" />
+    <Property Type="Int32" Name="SoLuong" Nullable="true" />
+    <Property Type="String" Name="MaDM" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="TinhTrang" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="Discount" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="ViewGIOHANG_Result">
+    <Property Type="String" Name="MaSP" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="TenSP" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="MauSac" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="KichThuoc" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="Gia" Nullable="true" />
+    <Property Type="String" Name="MaTH" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="NoiSX" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="HinhAnh" Nullable="true" MaxLength="200" />
+    <Property Type="Int32" Name="SoLuong" Nullable="true" />
+    <Property Type="String" Name="MaDM" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="TinhTrang" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="Discount" Nullable="true" />
+    <Property Type="Int32" Name="SoLuong1" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="ViewOneUSERS_Result">
+    <Property Type="String" Name="UserN" Nullable="true" MaxLength="10" />
+    <Property Type="Int32" Name="Roles" Nullable="true" />
+    <Property Type="String" Name="SDT" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="TenKH" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="DiaChi" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="Email" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="XemGioHang_Result">
+    <Property Type="String" Name="MaSP" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="TenSP" Nullable="true" MaxLength="200" />
+    <Property Type="Int32" Name="Gia" Nullable="true" />
+    <Property Type="String" Name="HinhAnh" Nullable="true" MaxLength="200" />
+    <Property Type="Int32" Name="SoLuong" Nullable="true" />
+    <Property Type="String" Name="SDT" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="TenKH" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="DiaChi" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="Email" Nullable="true" MaxLength="100" />
+  </ComplexType>
+</Schema>

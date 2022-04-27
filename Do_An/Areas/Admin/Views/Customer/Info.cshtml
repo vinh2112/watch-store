@@ -1,0 +1,253 @@
+﻿
+@{
+    ViewBag.Title = "Info";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@model Do_An.Frameworks.INFORMATION
+
+<div class="card shadow mb-auto">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Thông Tin Khách Hàng</h6>
+    </div>
+    <div class="card-body">
+        @if (TempData["Alert-Message"] != null)
+        {
+            <div class="alert @TempData["AlertType"]" id="success-alert">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <strong>@TempData["Alert-Message"]</strong>
+            </div>
+        }
+
+        @foreach (var item in ViewBag.Customer)
+        {
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputName">Tên khách hàng</label>
+                    @Html.TextBoxFor(model => model.TenKH, new { @class = "form-control", id = "inputName", @Value = item.TenKH, @readonly = "readonly" })
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputSDT">Số điện thoại</label>
+                    @Html.TextBoxFor(model => model.SDT, new { @class = "form-control", id = "inputSDT", @Value = item.SDT, @readonly = "readonly" })
+                </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="inputEmail">Email</label>
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control", id = "inputEmail", Value = item.Email, @readonly = "readonly" })
+                </div>
+                <div class="form-group col-md-8">
+                    <label for="inputDiaChi">Địa chỉ</label>
+                    @Html.TextBoxFor(model => model.DiaChi, new { @class = "form-control", id = "inputDiaChi", Value = item.DiaChi, @readonly = "readonly" })
+                </div>
+            </div>
+
+            <div class="dropdown-divider"></div>
+            <div class="form-row flex-row-reverse">
+                <a href="@ViewBag.URL" class="btn btn-light btn-icon-split" style="margin-right:10px;">
+                    <span class="icon text-gray-600">
+                        <i class="fas fa-chevron-left"></i>
+                    </span>
+                    <span class="text">Back</span>
+                </a>
+            </div>
+        }
+    </div>
+</div>
+<div class="dropdown-divider"></div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Đơn hàng</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Mã DH</th>
+                        <th>Ngày đặt</th>
+                        <th>Nội dung</th>
+                        <th>Tình trạng</th>
+                        <th>Thao tác</th>
+                        <th>Tổng tiền (đ)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.Order)
+                    {
+                        <tr>
+                            <td>@item.MaDH</td>
+                            <td>@item.NgayThang.ToString("dd/MM/yyyy")</td>
+                            <td style="font-size:14px;">
+                                @foreach (var name in ViewData[item.MaDH])
+                                {
+                                    @name
+                                    <br>
+                                }
+                                @if (item.TinhTrang != "Đang chờ")
+                                {
+
+                                    <b>Thông tin khách hàng</b> @Html.Encode(" : "); @item.DiaChi
+                                }
+                                else
+                                {
+                                    <a href="#" data-toggle="modal" data-target="#info@(item.MaDH)" type="button"><b>Thông tin khách hàng</b></a> @Html.Encode(" : "); @item.DiaChi
+                                    using (Html.BeginForm("ChangeInfo", "Order", new { maDH = item.MaDH }))
+                                    {
+                                        <div class="modal fade" id="info@(item.MaDH)" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Thay đổi thông tin khách hàng</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form method="post">
+                                                            <div class="form-group">
+                                                                <label for="address-text" class="col-form-label">Địa chỉ:</label>
+                                                                <textarea class="form-control" id="address-text" name="DiaChi">@item.DiaChi</textarea>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-success">Change</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @item.TinhTrang
+                            </td>
+                            <td style="text-align:center;">
+                                @if (item.TinhTrang == "Đang chờ")
+                                {
+                                    <button type="button" class="btn btn-success btn-circle btn-sm" data-toggle="modal" data-target="#@item.MaDH">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="@item.MaDH" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Xác nhận đơn hàng</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Xác nhận đơn hàng ?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                                    @Html.ActionLink("Xác nhận", "ShipOrder", "Order", new { maDH = item.MaDH, SDT = item.SDT }, new { @class = "btn btn-success" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <button type="button" class="btn btn-danger btn-circle btn-sm" data-toggle="modal" data-target="#cancel-@item.MaDH">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+
+                                    <div class="modal fade" id="cancel-@item.MaDH" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Hủy đơn hàng</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Hủy đơn hàng ?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                                    @Html.ActionLink("Hủy đơn", "CancelOrder", "Order", new { maDH = item.MaDH }, new { @class = "btn btn-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else if (item.TinhTrang == "Đang giao")
+                                {
+                                    <button type="button" class="btn btn-success btn-circle btn-sm" data-toggle="modal" data-target="#@item.MaDH">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="@item.MaDH" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Xác nhận đơn hàng</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Giao thành công đơn hàng ?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                                    @Html.ActionLink("Xác nhận", "VerifyOrder", "Order", new { maDH = item.MaDH, SDT = item.SDT }, new { @class = "btn btn-success" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <button type="button" class="btn btn-danger btn-circle btn-sm" data-toggle="modal" data-target="#cancel-@item.MaDH">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+
+                                    <div class="modal fade" id="cancel-@item.MaDH" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Hủy đơn hàng</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Hủy đơn hàng ?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                                    @Html.ActionLink("Hủy đơn", "CancelOrder", "Order", new { maDH = item.MaDH }, new { @class = "btn btn-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </td>
+                            <td style="font-size:20px;">
+                                @if (item.TongTien != null)
+                                {
+                                    @String.Format("{0:n0}", item.TongTien)
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="~/Assets/Admin/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Assets/Admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Assets/Admin/js/demo/datatables-demo.js"></script>
+}

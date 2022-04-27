@@ -1,0 +1,146 @@
+﻿
+@{
+    ViewBag.Title = "ViewTinTuc";
+    Layout = "~/Areas/Customer/Views/Shared/_Layout.cshtml";
+}
+@section Title{
+    <title>Tin Tức</title>
+}
+@section WebPagination{
+    <div class="container__content-heading" style="max-width: 71%; margin: 0 auto;">
+        <ul>
+            <li><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
+            <li style="color:black;"><strong>Tin tức</strong></li>
+        </ul>
+    </div>
+}
+
+@if (ViewBag.news == null)
+{
+    <div class="container__news">
+        <div class="container__content">
+            <div class="container__content-news">
+                <h3>Tin tức</h3>
+                <ul class="container-news-list">
+                    <li class="container-news-item">
+                        <a href="@Url.Action("ViewTinTuc","Product",new {news='1'})"><img src="~/images/news1.jpg" alt=""></a>
+                        <div class="content">
+                            <p class="news-date">24 tháng 7, 2017</p>
+                            <p class="news-heading">Chống nước 5ATM là gì?</p>
+                            <p class="news-content">Khi mua đồng hồ các bạn thường nhìn thấy trên mặt đồng hồ những kí hiệu như : WR 50M, 5 BAR, 10 ATM …Vậy những chỉ số đó có ý nghĩa gì về thông số và cách sử dụng đồng hồ, sau đây DYOSS sẽ khái quát sơ qua về những kí hiệu này. […]</p>
+                            <a href="@Url.Action("ViewTinTuc","Product",new {news='1'})" class="news-btn">Xem chi tiết</a>
+                        </div>
+                    </li>
+                    <li class="container-news-item">
+                        <a href="@Url.Action("ViewTinTuc","Product",new {news='2'})"><img src="~/images/news2.jpg" alt=""></a>
+                        <div class="content">
+                            <p class="news-date">24 tháng 7, 2017</p>
+                            <p class="news-heading">Tự đánh bóng đồng hồ đeo tay đơn giản tại nhà</p>
+                            <p class="news-content">Trong tất cả các loại đồng hồ có mặt trên thị trường hiện nay thì đồng hồ vỏ kim loại có phần phổ biến hơn các loại khác. Đồng hồ kim loại được yêu thích nhờ lớp vỏ sáng bóng, sang trọng; tuy nhiên đây cũng là loại vỏ dễ bị hư hại, trầy xước […]</p>
+                            <a href="@Url.Action("ViewTinTuc","Product",new {news='2'})" class="news-btn">Xem chi tiết</a>
+                        </div>
+                    </li>
+                    <li class="container-news-item">
+                        <a href="@Url.Action("ViewTinTuc","Product",new {news='3'})"><img src="~/images/news3.jpg" alt=""></a>
+                        <div class="content">
+                            <p class="news-date">24 tháng 7, 2017</p>
+                            <p class="news-heading">Cách bảo quản đồng hồ đeo tay hằng ngày</p>
+                            <p class="news-content">Đồng hồ trong nhịp sống hiện đại ngày nay dường như đã trở thành một người bạn không thể thiếu, luôn đồng hành mọi lúc mọi nơi cạnh bên các bạn trẻ năng động, bận rộn. Thế nhưng, việc đeo đồng hồ hằng ngày vô tình khiến chúng ta quên đi việc phải bảo quản […]</p>
+                            <a href="@Url.Action("ViewTinTuc","Product",new {news='3'})" class="news-btn">Xem chi tiết</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+}
+else if (ViewBag.news == "1")
+{
+    <div class="container__news">
+        <div class="container__content">
+            <div class="container__content-news">
+                <ul class="container-news-list">
+                    <li class="container-news-item news">
+                        <p class="news-date news">24 tháng 7, 2017</p>
+                        <p class="news-heading news">Chống nước 5ATM là gì?</p>
+                        <img src="~/images/news1.jpg" alt="news-img">
+                        <p class="news-content">Khi mua đồng hồ các bạn thường nhìn thấy trên mặt đồng hồ những kí hiệu như : WR 50M, 5 BAR, 10 ATM …Vậy những chỉ số đó có ý nghĩa gì về thông số và cách sử dụng đồng hồ, sau đây DYOSS sẽ khái quát sơ qua về những kí hiệu này.</p>
+                        <p class="news-content">WR là viết tắt của từ Water Resistance có nghĩa là khả năng chống nước của đồng hồ, thường thì những đồng hồ chính hãng in kí hiệu này đều có khả năng chống nước từ trung bình khá trở lên, đảm bảo sử dụng tốt cho nhu cầu hằng ngày.</p>
+                        <p class="news-content"><b>Ví dụ:</b> WR 50 có nghĩa là đồng hồ có thể chịu được áp lực nước tại độ sâu 50m.</p>
+                        <p class="news-content">BAR là một đại lượng đo áp suất của Anh (thu hẹp trong nội dung bài viết này là áp lực của nước tác dụng lên đồng hồ).</p>
+                        <p class="news-content">1 BAR có nghĩa là đồng hồ có khả năng chịu được áp lực nước ở độ sâu 10 mét mà vẫn đảm bảo hoạt động.</p>
+                        <p class="news-content">ATM cũng tương tự như BAR là một đại lượng đo áp suất phổ biến hiện nay.</p>
+                        <p class="news-content">1 ATM gần như tương đương 1 BAR và chịu được độ sâu tầm 10M.</p>
+                        <img src="~/images/news/news1.jpg" alt="ATM" style="padding: 20px 0 50px;">
+                        <p class="news-content"><b>Chống nước 5ATM</b></p>
+                        <p class="news-content">50M WATER RESISTANCE (5 BAR hoặc 5 ATM): Ở mức này thì bạn có thể mang chiếc đồng hồ này đi bơi thoải mái, tuy nhiên cũng nên hạn chế vào vùng nước quá sâu vì càng tiếp xúc nhiều với nước thì các gioăng cao su cũng dần mất dần khả năng và chiếc đồng hồ của bạn cũng sẽ giảm độ bền đi.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+}
+else if (ViewBag.news == "2")
+{
+    <div class="container__news">
+        <div class="container__content">
+            <div class="container__content-news">
+                <ul class="container-news-list">
+                    <li class="container-news-item news">
+                        <p class="news-date news">24 tháng 7, 2017</p>
+                        <p class="news-heading news">Tự đánh bóng đồng hồ đeo tay đơn giản tại nhà</p>
+                        <img src="~/images/news2.jpg" alt="news-img">
+                        <p class="news-content">Trong tất cả các loại đồng hồ có mặt trên thị trường hiện nay thì đồng hồ vỏ kim loại có phần phổ biến hơn các loại khác. Đồng hồ kim loại được yêu thích nhờ lớp vỏ sáng bóng, sang trọng; tuy nhiên đây cũng là loại vỏ dễ bị hư hại, trầy xước nhất trong quá trình sử dụng. Hãy cùng xem qua các cách đánh bóng đồng hồ đeo tay dưới đây để giữ cho chiếc đồng hồ của mình luôn trông như mới nhé.</p>
+                        <p class="news-content">Bạn không thể lúc nào cũng có thời gian để đem chiếc đồng hồ yêu quý của mình ra tiệm tân trang lại nhưng nó đã quá mờ và nếu để lâu hơn bạn lo ngại khi đem đi đánh bóng đồng hồ sẽ không còn được như mới. Thông thường, cứ khoảng nửa tháng hay một tháng bạn hãy lau chùi, vệ sinh và đánh bóng cho đồng hồ của mình. Cách đánh bóng đồng hồ đeo tay tại nhà khá đớn giản:</p>
+                        <p class="news-content"><b>1. Dùng dung môi:</b></p>
+                        <p class="news-content">Bạn có thể dùng các chất tẩy nhẹ như cồn (chọn loại có độ cồn thấp) hoặc bột baking soda pha với nước, dùng khăn mềm thấm và vắt khô rồi chà nhẹ lên bề mặt đồng hồ. Sau khi lau xong, bạn có thể lau lại bằng khăn ẩm với nước sạch là được.</p>
+                        <p class="news-content"><b>2. Dùng kem đánh răng:</b> </p>
+                        <p class="news-content">Kem đánh răng cũng là một loại chất tẩy nhẹ. Hãy để dành một chiếc bàn chải cũ có đầu lông mềm, chà nhẹ trên bề mặt đồng hồ rồi lấy khăn ướt lau sạch. Cuối cùng thì dùng khăn khô lau lại để tránh đồng hồ vào nước quá lâu. Bằng cách này bạn còn có thể làm mờ vế xướt trên dây đồng hồ nữa đấy.</p>
+                        <p class="news-content">Dù thường xuyên vệ sinh định kỳ tại nhà, bạn vẫn nên đem đồng hồ ra cửa hàng để bảo trì và kiểm tra mỗi sáu tháng một lần. Việc này sẽ giúp bạn khắc phục được những sai sót, hỏng hóc kịp thời, và bảo đảm được độ bền cũng như tuổi thọ của chiếc đồng hồ của bạn. Tuy nhiên bạn cần chọn những cửa hàng uy tín, đảm bảo chất lượng để an tâm hơn nhé.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container__news">
+        <div class="container__content">
+            <div class="container__content-news">
+                <ul class="container-news-list">
+                    <li class="container-news-item news">
+                        <p class="news-date news">24 tháng 7, 2017</p>
+                        <p class="news-heading news">Cách bảo quản đồng hồ đeo tay hằng ngày</p>
+                        <img src="~/images/news3.jpg" alt="news-img">
+                        <p class="news-content">Đồng hồ trong nhịp sống hiện đại ngày nay dường như đã trở thành một người bạn không thể thiếu, luôn đồng hành mọi lúc mọi nơi cạnh bên các bạn trẻ năng động, bận rộn. Thế nhưng, việc đeo đồng hồ hằng ngày vô tình khiến chúng ta quên đi việc phải bảo quản đồng hồ để giữa cho người bạn của mình luôn được bền và đẹp như mới.</p>
+                        <p class="news-content">Bài viết này sẽ hướng dẫn bạn những cách bảo quản đồng hồ đeo tay mà bạn nên bỏ túi cho riêng mình.</p>
+                        <p class="news-content"><b>1. Cách bảo quản đồng hồ đeo tay khi đeo:</b></p>
+                        <p class="news-content">Đừng tưởng đeo đồng hồ là chỉ việc đeo lên tay mà không cần chú ý gì mấy. Khi chiếc đồng hồ đã yên vị trên tay thì bạn cũng cần chú ý rất nhiều điều để không làm hư hại đến nó đấy.</p>
+                        <p class="news-content">Khi đồng hồ bị vào nước, nhất là đồng hồ dây da, bạn nên tháo đồng hồ khỏi tay, dùng khăn khô mềm lau nhẹ và để khô tự nhiên. Bằng cách này, chiếc đồng hồ của bạn sẽ không bị tích nước, ảnh hưởng đến phần dây da hoặc máy móc kĩ thuật bên trong.</p>
+                        <p class="news-content">Sau khi điều chỉnh giờ, bạn nên đóng sát nút điều chỉnh. Nếu không cẩn thẩn thì đây chính là nguyên nhân khiến đồng hồ bị vào nước, hấp hơi nước trong mặt kính, dễ làm giảm tuổi thọ của đồng hồ.</p>
+                        <p class="news-content">Không nên đeo đồng hồ liên tục suốt 24/7. Điều này không những có hại cho sức khỏe của bạn mà còn có ảnh hưởng đến đồng hồ. Sau khi về nhà, bạn nên tháo chiếc đồng hồ đã đeo cả một ngày ra, để thoáng mồ hôi, bay hơi bớt mùi và sẵn sàng cho một ngày làm việc mới tiếp theo.</p>
+                        <p class="news-content"><b>2. Cách bảo quản đồng hồ đeo tay định kỳ:</b> </p>
+                        <p class="news-content">Bạn còn có lúc phải nghỉ ngơi, thư giản thì chiếc đồng hồ cũng không thể luôn chạy suốt ngày suốt tháng mà không cần bảo dưỡng, chăm sóc. Cứ vài tuần một lần, bạn nên tiến hành tự làm vệ sinh đồng hồ tại nhà. Đối với những chiếc đồng hồ dây da thì việc này lại cần làm thường xuyên hơn, khoảng nửa tháng một lần, vi dây da là một loại hợp chất hữu cơ tổng hợp, rất dễ bị tác động của môi trường, nếu không vệ sinh thường xuyên thì sẽ bị xuống cấp rất nhanh.</p>
+                        <p class="news-content">Những việc bạn có thể làm để bảo dưỡng đồng hồ tại nhà là vệ sinh toàn đồng hồ, khử mùi, hút ẩm và đánh bóng. Tuy nhiên như vậy là vẫn chỉ mới chăm sóc vẻ bề ngoài. Định kỳ vài tháng, bạn nên đem đồng hồ ra cửa hiệu chuyên dụng để tiến hành kiểm tra kỹ thuật và máy móc bên trong, phát hiện kịp thời những hư hỏng để sửa chữa, tránh để lâu làm giảm tuổi thọ của đồng hồ.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+}
+
+<a class="scroll-to-top rounded" href="#page-top" style="display: flex; align-items:center; justify-content:center; text-decoration:none;">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+
+@section Scripts{
+    <script src="~/Assets/Admin/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Assets/Admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <link href="~/Assets/Admin/css/sb-admin-2.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Assets/Admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="~/Assets/Admin/js/sb-admin-2.min.js"></script>
+
+}

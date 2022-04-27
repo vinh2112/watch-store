@@ -1,0 +1,138 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@model Do_An.Frameworks.SANPHAM
+<div class="card shadow mb-auto">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Thông Tin Sản Phẩm</h6>
+    </div>
+    <div class="card-body">
+        @if (TempData["Alert-Message"] != null)
+        {
+            <div class="alert @TempData["AlertType"]" id="success-alert">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <strong>@TempData["Alert-Message"]</strong>
+            </div>
+        }
+        @using (Html.BeginForm("Edit", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            foreach (var item in ViewBag.Product)
+            {
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="inputID">Mã Sản Phẩm</label>
+                        @Html.TextBoxFor(model => model.MaSP, new { @class = "form-control", id = "inputID", @Value = item.MaSP, @readonly = "readonly" })
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputName">Tên Sản Phẩm</label>
+                        @Html.TextBoxFor(model => model.TenSP, new { @class = "form-control", id = "inputName", @Value = item.TenSP, required = "required" })
+                    </div>
+                    <div class="form-group col-md-1">
+
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="inputDiscount" class="text-primary">Giảm giá</label>
+                        <div class="input-group mb-3">
+                            @Html.TextBoxFor(model => model.Discount, new { @class = "form-control", type = "number", id = "inputDiscount", Value = item.Discount, required = "required", onchage = "numberWithCommas()" })
+                            <div class="input-group-append">
+                                <span class="input-group-text">%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dropdown-divider"></div>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="inputBrand">Thương Hiệu</label>
+                        <select id="inputBrand" class="form-control" disabled>
+                            @foreach (var brand in ViewBag.Brand)
+                            {
+                                <option @if (item.MaTH == brand.MaTH) { @Html.Encode("selected") ; } value="@brand.MaTH">
+                                    @brand.TenTH
+                                </option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="inputCategory">Danh Mục</label>
+                        <select id="inputCategory" class="form-control" name="cates">
+                            @foreach (var category in ViewBag.Category)
+                            {
+                                <option @if (item.MaDM == category.MaDM) { @Html.Encode("selected") ; } value="@category.MaDM">
+                                    @category.TenDM
+                                </option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="inputCategory">Tình trạng</label>
+                        <select id="inputCategory" class="form-control" name="status">
+                            <option @if (item.TinhTrang == "Đang bán") { @Html.Encode("selected") ; } value="Đang bán">
+                                Hiện
+                            </option>
+                            <option @if (item.TinhTrang == "Đã ẩn") { @Html.Encode("selected") ; } value="Đã ẩn">
+                                Ẩn
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="dropdown-divider"></div>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="inputColor">Màu Sắc</label>
+                        @Html.TextBoxFor(model => model.MauSac, new { @class = "form-control", id = "inputColor", Value = item.MauSac, required = "required" })
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="inputSize">Kích Thước</label>
+                        @Html.TextBoxFor(model => model.KichThuoc, new { @class = "form-control", id = "inputSize", Value = item.KichThuoc, required = "required" })
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="inputQuantity">Số Lượng</label>
+                        @Html.TextBoxFor(model => model.SoLuong, new { @class = "form-control", type = "number", id = "inputQuantity", Value = item.SoLuong, required = "required", min = "0" })
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="inputPrice">Giá</label>
+                        <div class="input-group mb-3">
+                            @Html.TextBoxFor(model => model.Gia, new { @class = "form-control", type = "number", id = "inputPrice", Value = item.Gia / 1000, required = "required", onchage = "numberWithCommas()" })
+                            <div class="input-group-append">
+                                <span class="input-group-text">,000đ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dropdown-divider"></div>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <img src="@item.HinhAnh" alt="Đồng hồ" class="img-thumbnail" style="width:260px;" id="output">
+
+                        @Html.TextBoxFor(model => model.HinhAnh, new { Value = item.HinhAnh, style = "display:none;" })
+                    </div>
+                    <div class="form-group col-md-5">
+                        <input type="file" id="file" name="file" accept="image/*" onchange="loadFile(event)" />
+                        <script>
+                            var loadFile = function (event) {
+                                var image = document.getElementById("output");
+                                image.src = URL.createObjectURL(event.target.files[0]);
+                            };
+                        </script>
+                    </div>
+                </div>
+            }
+            <div class="dropdown-divider"></div>
+            <div class="form-row flex-row-reverse">
+                <button class="btn btn-success" type="submit">Save</button>
+                <a href="@ViewBag.URL" class="btn btn-light btn-icon-split" style="margin-right:10px;">
+                    <span class="icon text-gray-600">
+                        <i class="fas fa-chevron-left"></i>
+                    </span>
+                    <span class="text">Back</span>
+                </a>
+            </div>
+        }
+    </div>
+</div>
